@@ -236,7 +236,7 @@ export default function Devis() {
                             </Button>
                         </div>
                         ) : (
-                        <div>
+                        <div style={{width:"100%"}}>
                         {activeStep === 0? <Contact /> : activeStep === 1? <Address/> : <Facture />}
                             
                             <div className={styles.footer}>
