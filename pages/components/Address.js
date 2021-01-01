@@ -56,10 +56,10 @@ export default function Address() {
     return (
         <Box className={styles.body}>   
             <TabPanel value={value} index={0}>
-                <Typography component={'span'} variant={'body2'}>Qui demande cette formation?</Typography>
+                <Typography component={'span'} variant={'body2'} className={styles.textmenu}>Qui demande cette formation?</Typography>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Typography component={'span'} variant={'body2'}>Parler à un conseiller : 09 72 65 24 84</Typography>
+                <Typography component={'span'} variant={'body2'} className={styles.textmenu}>Parler à un conseiller : 09 72 65 24 84</Typography>
             </TabPanel>
             <form name="contact" method="POST" data-netlify="true">
                 <Tabs
@@ -69,8 +69,8 @@ export default function Address() {
                     textColor="primary"
                     className={styles.menuBar}
                 >
-                    <Tab className={styles.menu} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} {...a11yProps(0)} />
-                    <Tab className={styles.menu} label="Professionnel" icon={<Avatar alt="avatar" src="/image/personal.png" />} {...a11yProps(1)} />
+                    <Tab className={styles.menu} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} style={{width: "50%"}} {...a11yProps(0)} />
+                    <Tab className={styles.menu} label="Professionnel" icon={<Avatar alt="avatar" src="/image/personal.png" />} style={{width: "50%"}} {...a11yProps(1)} />
                 </Tabs>
                 <TabPanel value={value} index={0}>
                     <CardContent

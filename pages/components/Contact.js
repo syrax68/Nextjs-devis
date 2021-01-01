@@ -11,7 +11,7 @@ import {
 export default function Contact() {
   return (
         <div className={styles.body}>   
-            <Typography className={styles.text}>Qui demande cette formation?</Typography>
+            <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
 
             <form name="contact" method="POST" data-netlify="true">
                 <CardContent
