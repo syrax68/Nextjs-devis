@@ -13,6 +13,8 @@ import {
   Tabs,
   TextareaAutosize
 } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import countries from '../helpers/countries';   
 
 
 function TabPanel(props) {
@@ -55,10 +57,10 @@ export default function Address() {
     };
     return (
         <Box className={styles.body}>   
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0} className={styles.tabPanel}>
                 <Typography component={'span'} variant={'body2'} className={styles.textmenu}>Qui demande cette formation?</Typography>
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={1} className={styles.tabPanel}>
                 <Typography component={'span'} variant={'body2'} className={styles.textmenu}>Parler à un conseiller : 09 72 65 24 84</Typography>
             </TabPanel>
             <form name="contact" method="POST" data-netlify="true">
@@ -78,7 +80,7 @@ export default function Address() {
                     >
                         <Grid
                             container
-                            spacing={4}
+                            spacing={2}
                         >
                             <Grid
                             item
@@ -132,11 +134,6 @@ export default function Address() {
                                 variant="outlined"
                             />
                             </Grid>
-                        </Grid>
-                        <Grid
-                            container
-                            spacing={4}
-                        >
                             <Grid
                             item
                             md={6}
@@ -155,12 +152,19 @@ export default function Address() {
                             md={6}
                             xs={12}
                             >
-                            <TextField
-                                fullWidth
-                                label="Pays"
-                                name="pays"
-                                required
-                                variant="outlined"
+                            <Autocomplete
+                                className={styles.autocompleted}
+                                getOptionLabel={(option) => option.text}
+                                options={countries}
+                                renderInput={(params) => (
+                                <TextField
+                                    fullWidth
+                                    label="Pays"
+                                    name="pays"
+                                    variant="outlined"
+                                    {...params}
+                                />
+                                )}
                             />
                             </Grid>
                             <Grid
@@ -168,14 +172,15 @@ export default function Address() {
                             md={12}
                             xs={12}
                             >
-                                 <Typography component={'span'} variant={'body2'}>
+                                <Typography component={'span'} variant={'body2'}>
                                     Message
                                 </Typography>                         
                                 <TextareaAutosize 
                                     aria-label="minimum height" 
                                     rowsMin={10} 
                                     className={styles.textarea}
-                                    placeholder="Mon métier est:    Mon projet est:     Mes objectifs sont:    Mon budget de formation est: &nbsp Je souhaite etre recontacté aux dates et horaires suivants :" />
+                                    placeholder="Mon métier est:    Mon projet est:     Mes objectifs sont:    Mon budget de formation est: &nbsp Je souhaite etre recontacté aux dates et horaires suivants :" 
+                                />
                             </Grid>     
                         </Grid>
                     </CardContent>
@@ -250,12 +255,19 @@ export default function Address() {
                             md={6}
                             xs={12}
                             >
-                            <TextField
-                                fullWidth
-                                label="Pays"
-                                name="pays"
-                                required
-                                variant="outlined"
+                            <Autocomplete
+                                className={styles.autocompleted}
+                                getOptionLabel={(option) => option.text}
+                                options={countries}
+                                renderInput={(params) => (
+                                <TextField
+                                    fullWidth
+                                    label="Pays"
+                                    name="pays"
+                                    variant="outlined"
+                                    {...params}
+                                />
+                                )}
                             />
                             </Grid>
                             <Grid

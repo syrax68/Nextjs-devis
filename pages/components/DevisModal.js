@@ -6,6 +6,8 @@ import clsx from 'clsx';
 import {
   Button,
   Modal,
+  Box,
+  CardContent,
   Grid,
   Fade,
   Backdrop,
@@ -224,21 +226,46 @@ export default function Devis() {
                     </Stepper>
                     <Grid
                         container
-                        spacing={4}
                     >
                         {activeStep === steps.length ? (
-                        <div>
-                            <Typography className={classes.instructions}>
-                            All steps completed - you&apos;re finished
-                            </Typography>
-                            <Button onClick={handleReset} className={classes.button}>
-                            Reset
+                        <>
+                          <Box
+                            className={styles.bloctext}
+                          >
+                            <CardContent
+                              className={styles.contentfinish}
+                            >
+                                <Typography 
+                                  variant="body1"
+                                  className={styles.center}
+                                >
+                                  Préparez votre Formation !
+                                </Typography>
+                                <Typography 
+                                  variant="body1"
+                                  className={styles.center}
+                                >
+                                  Votre Proposition vous a également été envoyée par email
+                                </Typography>
+                                <Typography 
+                                  variant="body1"
+                                  className={styles.centerlink}
+                                >
+                                  Suivez vos demande avec le mot de passe que vous venez de recevoir par email
+                                </Typography>
+                            </CardContent>       
+                          </Box>
+                          <Box
+                              className={styles.footerEnd}
+                            >
+                            <Button onClick={handleReset} className={styles.buttonReset}>
+                              Faire une nouvelle demande
                             </Button>
-                        </div>
+                          </Box>
+                        </>
                         ) : (
-                        <div style={{width:"100%"}}>
-                        {activeStep === 0? <Contact /> : activeStep === 1? <Address/> : <Facture />}
-                            
+                        <div style={{width:"100%", height:"100%"}}>
+                        {activeStep === 0? <Contact /> : activeStep === 1? <Address/> : <Facture />}   
                             <div className={styles.footer}>
                                 <Grid
                                     item

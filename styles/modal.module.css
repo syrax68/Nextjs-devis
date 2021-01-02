@@ -65,6 +65,7 @@
 .content {
     padding: 0px !important;
     padding-bottom: 24px !important;
+    width: 100%;
 }
 .footer {
     padding: 0 50px;
@@ -111,9 +112,43 @@
 }
 .menu {
     border: 1px solid #8c8c8c !important;
+    color: #8c8c8c !important;
 }
 .menu:focus {
     background-color: #19b3a3;
     color: #fff !important;
     border: 1px solid #19b3a3 !important;
+}
+.tabPanel div {
+    padding: 0px;
+}
+.autocompleted div button {
+    float: right;
+}
+.center {
+    text-align: center;
+}
+.contentfinish {
+    background-color: #f7fd94;
+    width: 100%;
+    padding: 20px;
+}
+.bloctext {
+    padding: 0 50px 0px 50px;
+}
+.footerEnd {
+    width: 100%;
+    border-top: 1px solid #8c8c8c;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttonReset {
+    margin: 15px !important;
+    border: 1px solid #b5b5b5 !important;
+}
+.centerlink {
+    text-align: center;
+    color: blue;
 }

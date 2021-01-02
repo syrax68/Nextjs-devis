@@ -13,6 +13,8 @@ import {
   Tabs,
   TextareaAutosize
 } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import countries from '../helpers/countries';   
 
 
 function TabPanel(props) {
@@ -138,12 +140,19 @@ export default function Facture() {
                             md={6}
                             xs={12}
                             >
-                            <TextField
-                                fullWidth
-                                label="Pays"
-                                name="pays"
-                                required
-                                variant="outlined"
+                            <Autocomplete
+                                className={styles.autocompleted}
+                                getOptionLabel={(option) => option.text}
+                                options={countries}
+                                renderInput={(params) => (
+                                <TextField
+                                    fullWidth
+                                    label="Pays"
+                                    name="pays"
+                                    variant="outlined"
+                                    {...params}
+                                />
+                                )}
                             />
                             </Grid>     
                         </Grid>
@@ -232,12 +241,19 @@ export default function Facture() {
                             md={6}
                             xs={12}
                             >
-                            <TextField
-                                fullWidth
-                                label="Pays"
-                                name="pays"
-                                required
-                                variant="outlined"
+                            <Autocomplete
+                                className={styles.autocompleted}
+                                getOptionLabel={(option) => option.text}
+                                options={countries}
+                                renderInput={(params) => (
+                                <TextField
+                                    fullWidth
+                                    label="Pays"
+                                    name="pays"
+                                    variant="outlined"
+                                    {...params}
+                                />
+                                )}
                             />
                             </Grid>     
                         </Grid>
@@ -313,12 +329,19 @@ export default function Facture() {
                             md={6}
                             xs={12}
                             >
-                            <TextField
-                                fullWidth
-                                label="Pays"
-                                name="pays"
-                                required
-                                variant="outlined"
+                            <Autocomplete
+                                className={styles.autocompleted}
+                                getOptionLabel={(option) => option.text}
+                                options={countries}
+                                renderInput={(params) => (
+                                <TextField
+                                    fullWidth
+                                    label="Pays"
+                                    name="pays"
+                                    variant="outlined"
+                                    {...params}
+                                />
+                                )}
                             />
                             </Grid>    
                         </Grid>
