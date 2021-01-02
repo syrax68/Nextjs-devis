@@ -1,154 +1,155 @@
 .main {
-    max-width: 800px;
-    width: 100%;
-    position: fixed;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+	max-width: 800px;
+	width: 100%;
+	position: fixed;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 .boutton {
-    height: 40px !important;
-    width: 100%;
-    font-weight: 600 !important;
-    color: #fff !important;
-    border-color: #19b3a3 !important;
-    background-color: #19b3a3 !important;
+	height: 40px !important;
+	width: 100%;
+	font-weight: 600 !important;
+	color: #fff !important;
+	border-color: #19b3a3 !important;
+	background-color: #19b3a3 !important;
 }
 .modal {
-    overflow: auto;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	overflow: auto;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .paper {
-    width: 95%;
-    max-width: 600px;
-    background-color: #fff;
-    border-radius: 5px;
+	top: 0;
+	width: 95%;
+	max-width: 600px;
+	background-color: #fff;
+	border-radius: 5px;
 }
 .paper:focus {
-    outline: none;
+	outline: none;
 }
 .header {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid #8c8c8c;
-    padding: 10px 20px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 1px solid #8c8c8c;
+	padding: 10px 20px;
 }
 .title {
-    float: left;
-    text-align: center;
-    font-family: Raleway, sans-serif !important;
-    font-weight: 500;
-    font-size: 18px;
+	float: left;
+	text-align: center;
+	font-family: Raleway, sans-serif !important;
+	font-weight: 500;
+	font-size: 18px;
 }
 .body {
-    padding: 0 30px;
-    font-family: open sans, sans-serif;
+	padding: 0 30px;
+	font-family: open sans, sans-serif;
 }
 @media (max-width: 400px) {
-    .body {
-        padding: 5px;
-        font-family: open sans, sans-serif;
-    }
-    .content div {
-        width: 100%;
-        margin: 0px;
-    }
+	.body {
+		padding: 5px;
+		font-family: open sans, sans-serif;
+	}
+	.content div {
+		width: 100%;
+		margin: 0px;
+	}
 }
 
 .content {
-    padding: 0px !important;
-    padding-bottom: 24px !important;
-    width: 100%;
+	padding: 0px !important;
+	padding-bottom: 24px !important;
+	width: 100%;
 }
 .footer {
-    padding: 0 50px;
-    padding-bottom: 40px;
+	padding: 0 50px;
+	padding-bottom: 40px;
 }
 .text {
-    color: #8c8c8c;
-    margin-left: 20px;
-    margin-bottom: 20px;
+	color: #8c8c8c;
+	margin-left: 20px;
+	margin-bottom: 20px;
 }
 .close {
-    position: absolute;
-    border: none;
-    background: transparent;
-    font-size: 30px;
-    right: 10px;
+	position: absolute;
+	border: none;
+	background: transparent;
+	font-size: 30px;
+	right: 10px;
 }
 .close:hover {
-    cursor: pointer;
+	cursor: pointer;
 }
 .textarea {
-    width: 100%;
+	width: 100%;
 }
 
 .menuBar {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
 }
 .menuBar div div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .menuBar div span {
-    background-color: transparent;
-    display: contents;
+	background-color: transparent;
+	display: contents;
 }
 .textmenu {
-    padding: 10px;
-    color: #8c8c8c;
-    margin-left: 20px !important;
-    margin-bottom: 10px !important;
+	padding: 10px;
+	color: #8c8c8c;
+	margin-left: 20px !important;
+	margin-bottom: 10px !important;
 }
 .menu {
-    border: 1px solid #8c8c8c !important;
-    color: #8c8c8c !important;
+	border: 1px solid #8c8c8c !important;
+	color: #8c8c8c !important;
 }
 .menu:focus {
-    background-color: #19b3a3;
-    color: #fff !important;
-    border: 1px solid #19b3a3 !important;
+	background-color: #19b3a3;
+	color: #fff !important;
+	border: 1px solid #19b3a3 !important;
 }
 .tabPanel div {
-    padding: 0px;
+	padding: 0px;
 }
 .autocompleted div button {
-    float: right;
+	float: right;
 }
 .center {
-    text-align: center;
+	text-align: center;
 }
 .contentfinish {
-    background-color: #f7fd94;
-    width: 100%;
-    padding: 20px;
+	background-color: #f7fd94;
+	width: 100%;
+	padding: 20px;
 }
 .bloctext {
-    padding: 0 50px 0px 50px;
+	padding: 0 50px 0px 50px;
 }
 .footerEnd {
-    width: 100%;
-    border-top: 1px solid #8c8c8c;
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: 100%;
+	border-top: 1px solid #8c8c8c;
+	margin-top: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .buttonReset {
-    margin: 15px !important;
-    border: 1px solid #b5b5b5 !important;
+	margin: 15px !important;
+	border: 1px solid #b5b5b5 !important;
 }
 .centerlink {
-    text-align: center;
-    color: blue;
+	text-align: center;
+	color: blue;
 }
