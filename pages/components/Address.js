@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/modal.module.css'
 import {
@@ -51,7 +51,13 @@ function a11yProps(index) {
 }
 export default function Address() {
     const [value, setValue] = React.useState(0);
-
+    const textAreas = document.getElementsByClassName('textarea');
+    useEffect(() => {   
+        Array.prototype.forEach.call(textAreas, function(elem) {
+            console.log(elem.placeholder)
+            elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
+        });
+    },)
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -178,8 +184,8 @@ export default function Address() {
                                 <TextareaAutosize 
                                     aria-label="minimum height" 
                                     rowsMin={10} 
-                                    className={styles.textarea}
-                                    placeholder="Mon métier est:    Mon projet est:     Mes objectifs sont:    Mon budget de formation est: &nbsp Je souhaite etre recontacté aux dates et horaires suivants :" 
+                                    className={[styles.textarea, "textarea"].join(' ')}
+                                    placeholder="Mon métier est:\nMon projet est:\nMes objectifs sont:\nMon budget de formation est:\nJe souhaite etre recontacté aux dates et horaires suivants :" 
                                 />
                             </Grid>     
                         </Grid>
@@ -281,8 +287,9 @@ export default function Address() {
                                 <TextareaAutosize 
                                     aria-label="minimum height" 
                                     rowsMin={10} 
-                                    className={styles.textarea}
-                                    placeholder="Mon métier est:    Mon projet est:     Mes objectifs sont:    Mon budget de formation est: &nbsp Je souhaite etre recontacté aux dates et horaires suivants :" />
+                                    className={[styles.textarea, "textarea"].join(' ') }
+                                    placeholder="Mon métier est:\nMon projet est:\nMes objectifs sont:\nMon budget de formation est:\nJe souhaite etre recontacté aux dates et horaires suivants :" 
+                                />
                             </Grid>     
                         </Grid>
                     </CardContent>
