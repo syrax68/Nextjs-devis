@@ -58,12 +58,12 @@ const Address = (props) => {
     const textareaRef = useRef();
 
     useEffect(() => {
-        textareaRef.current? textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n'):null;
         if (typeof window !== "undefined") {
             setContact(JSON.parse(localStorage.getItem('data')))    
         }
-       
-    },[setContact])
+        textareaRef.current? textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n'):null;
+    },[value, setContact])
+    
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
     };  
