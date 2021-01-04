@@ -80,6 +80,7 @@
 }
 .textarea {
 	width: 100%;
+	margin-top: 5px;
 }
 
 .menuBar {
@@ -108,6 +109,14 @@
 	border: 1px solid #ccc !important;
 	color: #8c8c8c !important;
 }
+.menuleft {
+	border-top-left-radius: 5px !important;
+	border-bottom-left-radius: 5px !important;
+}
+.menuright {
+	border-top-right-radius: 5px !important;
+	border-bottom-right-radius: 5px !important;
+}
 .menu:focus {
 	background-color: #19b3a3;
 	color: #fff !important;
@@ -126,7 +135,7 @@
 	text-align: center;
 }
 .contentfinish {
-	background-color: #f7fd94;
+	background-color: #f4ffee;
 	width: 100%;
 	padding: 20px;
 }
@@ -147,7 +156,7 @@
 }
 .centerlink {
 	text-align: center;
-	color: blue;
+	color: #41708c;
 }
 @media (max-width: 300px) {
 	.menu {

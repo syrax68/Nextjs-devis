@@ -57,7 +57,7 @@ const Address = () => {
     const textareaRef = useRef();
 
     useEffect(() => {
-        textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n');
+        textareaRef.current? textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n'):null;
     })
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
@@ -74,8 +74,8 @@ const Address = () => {
                 textColor="primary"
                 className={styles.menuBar}
             >
-                <Tab className={styles.menu} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(0)} />
-                <Tab className={styles.menu} label="Professionnel" icon={<Avatar alt="avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(1)} />
+                <Tab className={[styles.menu , styles.menuleft]} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(0)} />
+                <Tab className={[styles.menu , styles.menuright]} label="Professionnel" icon={<Avatar alt="avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(1)} />
             </Tabs>
             <Formik
                 enableReinitialize
@@ -267,8 +267,8 @@ const Address = () => {
                                             ref={textareaRef}
                                             name="message"
                                             aria-label="minimum height"
-                                            rowsMin={10}
-                                            className={[styles.textarea, "textarea"].join(' ')}
+                                            rowsMin={8}
+                                            className={styles.textarea}
                                             placeholder="Mon métier est:\nMon projet est:\nMes objectifs sont:\nMon budget de formation est:\nJe souhaite etre recontacté aux dates et horaires suivants :"
                                         />
                                     </Grid>
@@ -471,8 +471,8 @@ const Address = () => {
                                             ref={textareaRef}
                                             name="message"
                                             aria-label="minimum height"
-                                            rowsMin={10}
-                                            className={[styles.textarea, "textarea"].join(' ')}
+                                            rowsMin={8}
+                                            className={styles.textarea}
                                             placeholder="Mon métier est:\nMon projet est:\nMes objectifs sont:\nMon budget de formation est:\nJe souhaite etre recontacté aux dates et horaires suivants :"
                                         />
                                     </Grid>

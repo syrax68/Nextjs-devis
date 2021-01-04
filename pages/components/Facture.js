@@ -67,9 +67,9 @@ export default function Facture() {
                 textColor="primary"
                 className={styles.menuBar}
             >
-                <Tab className={styles.menu} label="Particulier" {...a11yProps(0)} style={{width: "30%"}}/>
+                <Tab className={[styles.menu, styles.menuleft]} label="Particulier" {...a11yProps(0)} style={{width: "30%"}}/>
                 <Tab className={styles.menu} label="Organisme" {...a11yProps(1)} style={{width: "30%"}}/>
-                <Tab className={styles.menu} label="Entreprise" {...a11yProps(2)} style={{width: "30%"}}/>
+                <Tab className={[styles.menu, styles.menuright]} label="Entreprise" {...a11yProps(2)} style={{width: "30%"}}/>
             </Tabs>
             <Formik
                 enableReinitialize
