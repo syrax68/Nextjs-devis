@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/modal.module.css'
 import {
@@ -14,7 +14,7 @@ import {
   TextareaAutosize
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';  
-import countries from '../../helpers/countries'
+import countries from '../../helpers/countries';
 
 const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
@@ -50,20 +50,10 @@ const a11yProps = (index) => {
 }
 const Address = () => {
     const [value, setValue] = React.useState(0);
-    const aScript = document.createElement('script');
-    aScript.type = 'text/javascript';
-    aScript.src = " https://js.stripe.com/v3/";
-
-    document.head.appendChild(aScript);
+    const textareaRef = useRef();
     
     useEffect(() => {   
-        aScript.onload = () => {
-            const textAreas = document.getElementsByClassName('textarea');
-            Array.prototype.forEach.call(textAreas, function(elem) {
-                console.log(elem.placeholder)
-                elem.placeholder = elem.placeholder.replace(/\\n/g, '\n');
-            });
-        };
+        textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n');
     },)
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -189,6 +179,7 @@ const Address = () => {
                                     Message
                                 </Typography>                         
                                 <TextareaAutosize 
+                                    ref={textareaRef}
                                     aria-label="minimum height" 
                                     rowsMin={10} 
                                     className={[styles.textarea, "textarea"].join(' ')}
@@ -292,6 +283,7 @@ const Address = () => {
                                     Message
                                 </Typography>
                                 <TextareaAutosize 
+                                    ref={textareaRef}
                                     aria-label="minimum height" 
                                     rowsMin={10} 
                                     className={[styles.textarea, "textarea"].join(' ') }
