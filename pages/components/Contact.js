@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../../styles/modal.module.css';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import wait from '../../utils/wait';
 import {
   Button,
   CardContent,
@@ -18,11 +19,16 @@ export default function Contact() {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    name: '',
-                    submit: null
+                    firstname:'',
+                    lastname:'',
+                    email:'',
+                    phone:'',
                 }}
                 validationSchema={Yup.object().shape({
-                    name: Yup.string().max(255).required('Name is required'),
+                    firstname: Yup.string().max(30).required('Merci de renseigner votre nom'),
+                    lastname: Yup.string().max(30).required('Merci de renseigner votre prénom'),
+                    email: Yup.string().email('Invalid email').required('L\'adresse email est requise'),
+                    phone: Yup.string().max(30).required('Le numero téléphone est requise'),
                 })}
                 onSubmit={async (values, {
                     resetForm,
@@ -36,9 +42,7 @@ export default function Contact() {
                     resetForm();
                     setStatus({ success: true });
                     setSubmitting(false);
-                    enqueueSnackbar('Envoyée!', {
-                        variant: 'success'
-                    });
+                    console.log('success')
                     } catch (err) {
                     console.error(err);
                     setStatus({ success: false });
@@ -70,10 +74,14 @@ export default function Contact() {
                             xs={12}
                             >
                                 <TextField
+                                    error={Boolean(touched.lastname && errors.lastname)}
+                                    helperText={touched.lastname && errors.lastname}
                                     fullWidth
                                     label="Prénom"
-                                    name="prenom"
-                                    required
+                                    name="lastname"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.lastname}
                                     variant="outlined"
                                 />
                             </Grid>
@@ -83,9 +91,14 @@ export default function Contact() {
                             xs={12}
                             >
                                 <TextField
+                                    error={Boolean(touched.firstname && errors.firstname)}
+                                    helperText={touched.firstname && errors.firstname}
                                     fullWidth
                                     label="Nom"
-                                    name="nom"
+                                    name="firstname"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.firstname}
                                     required
                                     variant="outlined"
                                 />
@@ -96,6 +109,11 @@ export default function Contact() {
                             xs={12}
                             >
                                 <TextField
+                                    error={Boolean(touched.email && errors.email)}
+                                    helperText={touched.email && errors.email}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.email}
                                     fullWidth
                                     label="Email"
                                     name="email"
@@ -110,6 +128,11 @@ export default function Contact() {
                             xs={12}
                             >
                                 <TextField
+                                    error={Boolean(touched.phone && errors.phone)}
+                                    helperText={touched.phone && errors.phone}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.phone}
                                     fullWidth
                                     label="Télephone"
                                     name="phone"
