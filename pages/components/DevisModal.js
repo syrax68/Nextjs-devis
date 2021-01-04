@@ -255,7 +255,7 @@ export default function Devis() {
                         </>
                         ) : (
                         <div style={{width:"100%", height:"100%"}}>
-                        {activeStep === 0? <Contact /> : activeStep === 1? <Address/> : <Facture />}   
+                        {activeStep === 0? <Contact activeStep={activeStep} /> : activeStep === 1? <Address/> : <Facture />}   
                             <div className={styles.footer}>
                                 <Grid
                                     item

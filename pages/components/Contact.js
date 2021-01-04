@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from '../../styles/modal.module.css';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -11,8 +11,11 @@ import {
   TextField
 } from '@material-ui/core';
 
-export default function Contact() {
-  return (
+export default function Contact(props) {
+
+    console.log(props);
+
+    return (
         <div className={styles.body}>   
             <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
 
@@ -38,11 +41,11 @@ export default function Contact() {
                 }) => {
                     try {
                     // NOTE: Make API request
-                    await wait(200);
-                    resetForm();
-                    setStatus({ success: true });
-                    setSubmitting(false);
-                    console.log('success')
+                        await wait(200);
+                        resetForm();
+                        setStatus({ success: true });
+                        setSubmitting(false);
+                   
                     } catch (err) {
                     console.error(err);
                     setStatus({ success: false });
