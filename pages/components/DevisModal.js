@@ -183,10 +183,6 @@ export default function Devis() {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
-
     const handleReset = () => {
         setActiveStep(0);
     };
@@ -272,7 +268,7 @@ export default function Devis() {
                                     md={12}
                                     xs={12}
                                 >
-                                    <Button variant="contained" className={styles.boutton} onClick={handleNext}>Envoyer</Button>
+                                    <Button variant="contained" className={styles.boutton} onClick={handleNext}>{activeStep === 0?  'Envoyer': activeStep === 1?  'Envoyer mon devis': 'Générer mon devis'}</Button>
                                 </Grid>
                             </div>
                         </div>

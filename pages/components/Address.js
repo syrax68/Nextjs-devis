@@ -17,7 +17,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import countries from '../helpers/countries';   
 
 
-function TabPanel(props) {
+const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
   
     return (
@@ -29,7 +29,7 @@ function TabPanel(props) {
         {...other}
       >
         {value === index && (
-          <Box p={3}>
+          <Box p={3} className={styles.tabpanelBox}>
             <Typography>{children}</Typography>
           </Box>
         )}
@@ -43,13 +43,13 @@ TabPanel.propTypes = {
     value: PropTypes.any.isRequired,
 };
   
-function a11yProps(index) {
+const a11yProps = (index) => {
     return {
         id: `simple-tab-${index}`,
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-export default function Address() {
+const Address = () => {
     const [value, setValue] = React.useState(0);
     const textAreas = document.getElementsByClassName('textarea');
     useEffect(() => {   
@@ -298,3 +298,4 @@ export default function Address() {
         </Box>               
   )
 }
+export default Address;
