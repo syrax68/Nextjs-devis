@@ -52,7 +52,7 @@ const a11yProps = (index) => {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-const Address = () => {
+const Address = (props) => {
     const [value, setValue] = React.useState(0);
     const textareaRef = useRef();
 
@@ -74,8 +74,8 @@ const Address = () => {
                 textColor="primary"
                 className={styles.menuBar}
             >
-                <Tab className={[styles.menu , styles.menuleft]} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(0)} />
-                <Tab className={[styles.menu , styles.menuright]} label="Professionnel" icon={<Avatar alt="avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(1)} />
+                <Tab className={[styles.menu , styles.menuleft].join(' ')} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(0)} />
+                <Tab className={[styles.menu , styles.menuright].join(' ')} label="Professionnel" icon={<Avatar alt="avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(1)} />
             </Tabs>
             <Formik
                 enableReinitialize
@@ -110,7 +110,7 @@ const Address = () => {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
-                        console.log('success')
+                        return props.setActiveStep(2)
                     } catch (err) {
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
@@ -256,7 +256,7 @@ const Address = () => {
                                         md={12}
                                         xs={12}
                                     >
-                                        <Typography component={'span'} variant={'body2'}>
+                                        <Typography component={'span'} variant={'body1'}>
                                             Message
                                     </Typography>
                                         <TextareaAutosize
@@ -460,7 +460,7 @@ const Address = () => {
                                         md={12}
                                         xs={12}
                                     >
-                                        <Typography component={'span'} variant={'body2'}>
+                                        <Typography component={'span'} variant={'body1'}>
                                             Message
                                         </Typography>
                                         <TextareaAutosize

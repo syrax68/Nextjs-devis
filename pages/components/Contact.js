@@ -45,12 +45,12 @@ export default function Contact(props) {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
-                   
+                        return props.setActiveStep(1)
                     } catch (err) {
-                    console.error(err);
-                    setStatus({ success: false });
-                    setErrors({ submit: err.message });
-                    setSubmitting(false);
+                        console.error(err);
+                        setStatus({ success: false });
+                        setErrors({ submit: err.message });
+                        setSubmitting(false);
                     }
                 }}
                 >

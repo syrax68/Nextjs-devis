@@ -52,7 +52,7 @@ function a11yProps(index) {
         'aria-controls': `simple-tabpanel-${index}`,
     };
 }
-export default function Facture() {
+export default function Facture(props) {
     const [value, setValue] = React.useState(0);
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
@@ -67,9 +67,9 @@ export default function Facture() {
                 textColor="primary"
                 className={styles.menuBar}
             >
-                <Tab className={[styles.menu, styles.menuleft]} label="Particulier" {...a11yProps(0)} style={{width: "30%"}}/>
+                <Tab className={[styles.menu, styles.menuleft].join(' ')} label="Particulier" {...a11yProps(0)} style={{width: "30%"}}/>
                 <Tab className={styles.menu} label="Organisme" {...a11yProps(1)} style={{width: "30%"}}/>
-                <Tab className={[styles.menu, styles.menuright]} label="Entreprise" {...a11yProps(2)} style={{width: "30%"}}/>
+                <Tab className={[styles.menu, styles.menuright].join(' ')} label="Entreprise" {...a11yProps(2)} style={{width: "30%"}}/>
             </Tabs>
             <Formik
                 enableReinitialize
@@ -95,17 +95,17 @@ export default function Facture() {
                     setSubmitting
                 }) => {
                     try {
-                    // NOTE: Make API request
-                    await wait(200);
-                    resetForm();
-                    setStatus({ success: true });
-                    setSubmitting(false);
-                    console.log('success')
+                        // NOTE: Make API request
+                        await wait(200);
+                        resetForm();
+                        setStatus({ success: true });
+                        setSubmitting(false);
+                        return props.setActiveStep(3)
                     } catch (err) {
-                    console.error(err);
-                    setStatus({ success: false });
-                    setErrors({ submit: err.message });
-                    setSubmitting(false);
+                        console.error(err);
+                        setStatus({ success: false });
+                        setErrors({ submit: err.message });
+                        setSubmitting(false);
                     }
                 }}
                 >
@@ -279,17 +279,17 @@ export default function Facture() {
                     setSubmitting
                 }) => {
                     try {
-                    // NOTE: Make API request
-                    await wait(200);
-                    resetForm();
-                    setStatus({ success: true });
-                    setSubmitting(false);
-                    console.log('success')
+                        // NOTE: Make API request
+                        await wait(200);
+                        resetForm();
+                        setStatus({ success: true });
+                        setSubmitting(false);
+                        return props.setActiveStep(3)
                     } catch (err) {
-                    console.error(err);
-                    setStatus({ success: false });
-                    setErrors({ submit: err.message });
-                    setSubmitting(false);
+                        console.error(err);
+                        setStatus({ success: false });
+                        setErrors({ submit: err.message });
+                        setSubmitting(false);
                     }
                 }}
                 >
@@ -465,7 +465,6 @@ export default function Facture() {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    name: '',
                     state: '',
                     code: '',
                     address: '',
@@ -474,7 +473,6 @@ export default function Facture() {
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    name: Yup.string().max(30).required('Merci de renseigner le nom'),
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
@@ -488,17 +486,17 @@ export default function Facture() {
                     setSubmitting
                 }) => {
                     try {
-                    // NOTE: Make API request
-                    await wait(200);
-                    resetForm();
-                    setStatus({ success: true });
-                    setSubmitting(false);
-                    console.log('success')
+                        // NOTE: Make API request
+                        await wait(200);
+                        resetForm();
+                        setStatus({ success: true });
+                        setSubmitting(false);
+                        return props.setActiveStep(3)
                     } catch (err) {
-                    console.error(err);
-                    setStatus({ success: false });
-                    setErrors({ submit: err.message });
-                    setSubmitting(false);
+                        console.error(err);
+                        setStatus({ success: false });
+                        setErrors({ submit: err.message });
+                        setSubmitting(false);
                     }
                 }}
                 >

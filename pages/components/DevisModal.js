@@ -255,16 +255,7 @@ export default function Devis() {
                         </>
                         ) : (
                         <div style={{width:"100%", height:"100%"}}>
-                        {activeStep === 0? <Contact activeStep={activeStep} /> : activeStep === 1? <Address/> : <Facture />}   
-                            <div className={styles.footer}>
-                                <Grid
-                                    item
-                                    md={12}
-                                    xs={12}
-                                >
-                                    <Button variant="contained" className={styles.boutton} onClick={handleNext}>{activeStep === 0?  'Envoyer': activeStep === 1?  'Envoyer mon devis': 'Générer mon devis'}</Button>
-                                </Grid>
-                            </div>
+                            {activeStep === 0? <Contact setActiveStep={step => setActiveStep(step)}/> : activeStep === 1? <Address setActiveStep={step => setActiveStep(step)}/> : <Facture setActiveStep={step => setActiveStep(step)}/>}   
                         </div>
                         )}
                     </Grid>
