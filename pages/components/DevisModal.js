@@ -175,7 +175,6 @@ function getSteps() {
   
 export default function Devis() {
     const [open, setOpen] = React.useState(false);
-    const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
 
@@ -213,7 +212,7 @@ export default function Devis() {
                         <Typography className={styles.title} id="ModalLabel">Demander un devis</Typography>
                         <button type="button" className={styles.close} data-dismiss="modal" aria-label="Close" onClick={handleClose}><span aria-hidden="true">×</span></button>
                     </div>
-                    <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+                    <Stepper className={styles.strepperbloc} alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} >
                         {steps.map((label) => (
                         <Step key={label}>
                             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>

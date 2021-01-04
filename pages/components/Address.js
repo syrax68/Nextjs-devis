@@ -54,7 +54,7 @@ const Address = () => {
     
     useEffect(() => {   
         textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n');
-    },)
+    },) 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };

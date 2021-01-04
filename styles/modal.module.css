@@ -53,19 +53,6 @@
     padding: 0 30px;
     font-family: open sans, sans-serif;
 }
-@media (max-width: 400px) {
-    .body {
-        padding: 5px;
-        font-family: open sans, sans-serif;
-    }
-    .content div {
-        width: 100%;
-        margin: 0px;
-    }
-    .tabpanelBox {
-        padding: 0px !important;
-    }
-}
 
 .content {
     padding: 0px !important;
@@ -156,4 +143,32 @@
 .centerlink {
     text-align: center;
     color: blue;
+}
+@media (max-width: 300px) {
+    .menu {
+        font-size: 10px !important;
+    }
+    .boutton span {
+        font-size: 10px !important;
+    }
+    .strepperbloc {
+        padding: 24px 0px !important;
+    }
+    .textmenu {
+        padding: 0px !important;
+        margin-left: 5px !important;
+    }
+}
+@media (max-width: 400px) {
+    .body {
+        padding: 5px;
+        font-family: open sans, sans-serif;
+    }
+    .content div {
+        width: 100%;
+        margin: 0px;
+    }
+    .tabpanelBox {
+        padding: 0px !important;
+    }
 }
