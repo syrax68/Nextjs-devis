@@ -174,7 +174,7 @@ function getSteps() {
 }
   
 export default function Devis() {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const [activeStep, setActiveStep] = React.useState(0);
     const steps = getSteps();
 
@@ -185,16 +185,11 @@ export default function Devis() {
     const handleReset = () => {
         setActiveStep(0);
     };
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
     const handleClose = () => {
         setOpen(false);
     };
   return (
       <main className={styles.main}>
-        <Button variant="contained" className={styles.boutton} onClick={handleOpen}>Prendre Contact</Button>
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
