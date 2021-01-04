@@ -32,7 +32,7 @@ function TabPanel(props) {
         {...other}
       >
         {value === index && (
-          <Box p={3}  className={styles.tabpanelBox}>
+          <Box p={1}  className={styles.tabpanelBox}>
             <Typography>{children}</Typography>
           </Box>
         )}
@@ -58,8 +58,10 @@ export default function Facture(props) {
         setValue(newValue);
     };
     return (
-        <Box className={styles.body}>   
-            <Typography component={'span'} variant={'body2'} className={styles.textmenu}>Qui finance cette formation ?</Typography>
+        <Box className={styles.body}>
+            <div className={styles.tabPanel}>
+                <Typography component={'span'} variant={'body2'} className={styles.textmenu}>Qui finance cette formation ?</Typography>
+            </div>           
             <Tabs
                 value={value}
                 onChange={handleChangeTab}
@@ -67,9 +69,9 @@ export default function Facture(props) {
                 textColor="primary"
                 className={styles.menuBar}
             >
-                <Tab className={[styles.menu, styles.menuleft].join(' ')} label="Particulier" {...a11yProps(0)} style={{width: "30%"}}/>
-                <Tab className={styles.menu} label="Organisme" {...a11yProps(1)} style={{width: "30%"}}/>
-                <Tab className={[styles.menu, styles.menuright].join(' ')} label="Entreprise" {...a11yProps(2)} style={{width: "30%"}}/>
+                <Tab className={[styles.menu, styles.menuleft].join(' ')} label="Particulier" {...a11yProps(0)} style={{width: "33.33%"}}/>
+                <Tab className={styles.menu} label="Organisme" {...a11yProps(1)} style={{width: "33.33%"}}/>
+                <Tab className={[styles.menu, styles.menuright].join(' ')} label="Entreprise" {...a11yProps(2)} style={{width: "33.33%"}}/>
             </Tabs>
             <Formik
                 enableReinitialize
@@ -125,7 +127,7 @@ export default function Facture(props) {
                             >
                                 <Grid
                                     container
-                                    spacing={4}
+                                    spacing={2}
                                 >
                                     <Grid
                                         item
@@ -309,7 +311,7 @@ export default function Facture(props) {
                             >
                                 <Grid
                                     container
-                                    spacing={4}
+                                    spacing={2}
                                 >
                                     <Grid
                                     item
@@ -516,7 +518,7 @@ export default function Facture(props) {
                             >
                                 <Grid
                                     container
-                                    spacing={4}
+                                    spacing={2}
                                 >
                                     <Grid
                                     item

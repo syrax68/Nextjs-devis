@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/modal.module.css';
 import * as Yup from 'yup';
@@ -32,7 +32,7 @@ const TabPanel = (props) => {
             {...other}
         >
             {value === index && (
-                <Box p={3} className={styles.tabpanelBox}>
+                <Box p={1} className={styles.tabpanelBox}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -53,12 +53,17 @@ const a11yProps = (index) => {
     };
 }
 const Address = (props) => {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
+    const [contact, setContact] = useState();
     const textareaRef = useRef();
 
     useEffect(() => {
         textareaRef.current? textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n'):null;
-    })
+        if (typeof window !== "undefined") {
+            setContact(JSON.parse(localStorage.getItem('data')))    
+        }
+       
+    },[setContact])
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
     };  
@@ -80,8 +85,8 @@ const Address = (props) => {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    firstname: '',
-                    lastname: '',
+                    firstname: contact?contact.firstname:'',
+                    lastname: contact?contact.lastname:'',
                     state: '',
                     code: '',
                     address: '',
@@ -308,8 +313,7 @@ const Address = (props) => {
                     address: '',
                     country: countries[73].text,
                     message: '',
-                    company:'',
-                    submit: null
+                    company:''
                 }}
                 validationSchema={Yup.object().shape({
                     state: Yup.string().required(`Merci de renseigner la ville`),
@@ -331,7 +335,7 @@ const Address = (props) => {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
-                        console.log('success')
+                        return props.setActiveStep(2)
                     } catch (err) {
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
@@ -355,7 +359,7 @@ const Address = (props) => {
                             >
                                 <Grid
                                     container
-                                    spacing={4}
+                                    spacing={2}
                                 >
                                     <Grid
                                         item
@@ -367,7 +371,7 @@ const Address = (props) => {
                                             helperText={touched.company && errors.company}
                                             onBlur={handleBlur}
                                             onChange={handleChange}
-                                            value={values.entreprise}
+                                            value={values.company}
                                             fullWidth
                                             label="Entreprise"
                                             name="company"

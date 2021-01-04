@@ -13,8 +13,6 @@ import {
 
 export default function Contact(props) {
 
-    console.log(props);
-
     return (
         <div className={styles.body}>   
             <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
@@ -45,9 +43,11 @@ export default function Contact(props) {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
+                        if (typeof window !== "undefined") {
+                            localStorage.setItem('data',JSON.stringify(values))    
+                        }
                         return props.setActiveStep(1)
                     } catch (err) {
-                        console.error(err);
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
                         setSubmitting(false);

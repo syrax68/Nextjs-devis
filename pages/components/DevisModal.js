@@ -207,7 +207,7 @@ export default function Devis() {
                         <Typography className={styles.title} id="ModalLabel">Demander un devis</Typography>
                         <button type="button" className={styles.close} data-dismiss="modal" aria-label="Close" onClick={handleClose}><span aria-hidden="true">×</span></button>
                     </div>
-                    <Stepper className={styles.strepperbloc} alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} >
+                    <Stepper style={{padding: '10px'}} alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} >
                         {steps.map((label) => (
                         <Step key={label}>
                             <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
