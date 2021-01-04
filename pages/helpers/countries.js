@@ -1,4 +1,4 @@
-export default [
+const countries = [
     { "text": "Afghanistan", "value": "AF" },
     { "text": "Åland Islands", "value": "AX" },
     { "text": "Albania", "value": "AL" },
@@ -243,4 +243,4 @@ export default [
     { "text": "Zambia", "value": "ZM" },
     { "text": "Zimbabwe", "value": "ZW" }
 ];
-  
+export default countries;
