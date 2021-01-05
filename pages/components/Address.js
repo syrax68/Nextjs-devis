@@ -55,6 +55,7 @@ const a11yProps = (index) => {
 const Address = (props) => {
     const [value, setValue] = useState(0);
     const [contact, setContact] = useState();
+    const [country, setCountry] = useState();
     const textareaRef = useRef();
 
     useEffect(() => {
@@ -67,6 +68,10 @@ const Address = (props) => {
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
     };  
+    const onChangeCountry = (event, values) => {
+        setCountry(values);
+    }
+    console.log(country);
     return (
         <Box className={styles.body}>
             <TabPanel value={value} index={1} className={styles.tabPanel}>
@@ -85,12 +90,12 @@ const Address = (props) => {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    firstname: contact?contact.firstname:'',
-                    lastname: contact?contact.lastname:'',
+                    firstname: contact?contact.firstnamekljh:'',
+                    lastname: contact?contact.lastnamekljh:'',
                     state: '',
                     code: '',
                     address: '',
-                    country: countries[73].text,
+                    country: country?country.text?country.text:countries[73].text:countries[73].text,
                     message: '',
                     submit: null
                 }}
@@ -116,6 +121,7 @@ const Address = (props) => {
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
+                            values.country = country;
                             localStorage.setItem('dataAddress',JSON.stringify(values))    
                         }
                         return props.setActiveStep(2)
@@ -243,13 +249,12 @@ const Address = (props) => {
                                             getOptionLabel={(option) => option.text}
                                             options={countries}
                                             defaultValue={countries[73]}
+                                            onBlur={handleBlur}
+                                            onChange={onChangeCountry}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}
                                                     helperText={touched.country && errors.country}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.country}
                                                     fullWidth
                                                     label="Pays"
                                                     name="country"
@@ -449,13 +454,12 @@ const Address = (props) => {
                                             getOptionLabel={(option) => option.text}
                                             options={countries}
                                             defaultValue={countries[73]}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}
                                                     helperText={touched.country && errors.country}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.country}
                                                     fullWidth
                                                     label="Pays"
                                                     name="country"

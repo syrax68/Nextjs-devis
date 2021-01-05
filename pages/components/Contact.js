@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import styles from '../../styles/modal.module.css';
 import * as Yup from 'yup';
+import 'yup-phone';
 import { Formik } from 'formik';
 import wait from '../../utils/wait';
 import {
@@ -10,44 +11,67 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/material.css';
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/; 
 
 export default function Contact(props) {
-    
+    const [spameur, setSpam] = useState(false);
+    const [phone, setPhone] = useState();
+    const honeypot_validade = (req) => {          
+        if(req.firstname || req.lastname || req.email){
+            return true; 
+        }
+        return false;
+    }
     return (
         <div className={styles.body}>   
             <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
-
             <Formik
                 enableReinitialize
                 initialValues={{
-                    firstname:'',
-                    lastname:'',
-                    email:'',
+                    firstnamekljh:'',
+                    lastnamekljh:'',
+                    emailkljh:'',
+                    phonekljh:phone?phone:'',
+                    firstname:'fdsafsdafsadf',
+                    lastname:'dsfsadfasf',
+                    email:'fsafsdafasdf@gmail.com',
                     phone:'',
                 }}
                 validationSchema={Yup.object().shape({
-                    firstname: Yup.string().max(30).required('Merci de renseigner votre nom'),
-                    lastname: Yup.string().max(30).required('Merci de renseigner votre prénom'),
-                    email: Yup.string().email('Merci de corriger votre Email').required('L\'adresse email est requise'),
-                    phone: Yup.string().max(30).required('Le numero téléphone est requise'),
+                    firstnamekljh: Yup.string().max(30).required('Merci de renseigner votre nom'),
+                    lastnamekljh: Yup.string().max(30).required('Merci de renseigner votre prénom'),
+                    emailkljh: Yup.string().email('Merci de corriger votre Email').required('L\'adresse email est requise'),
+                    phonekljh: Yup.string().matches(phoneRegExp, 'Merci de corriger votre numero de téléphone').required('Merci de renseigner votre numero téléphone'),
+                    firstname: Yup.string().max(30),
+                    lastname: Yup.string().max(30),
+                    email: Yup.string().email('Merci de corriger votre Email'),
+                    //phone: Yup.string().required('Merci de renseigner votre numero téléphone')
                 })}
                 onSubmit={async (values, {
                     resetForm,
                     setErrors,
                     setStatus,
-                    setSubmitting
+                    setSubmitting,
                 }) => {
                     try {
                     // NOTE: Make API request
                         await wait(200);
-                        resetForm();
-                        setStatus({ success: true });
-                        setSubmitting(false);
+                        honeypot_validade(values)=== true?setSpam(true):setSpam(false);
+                        console.log(spameur)
                         if (typeof window !== "undefined") {
                             localStorage.setItem('dataContact',JSON.stringify(values))    
                         }
-                        return props.setActiveStep(1)
+                        if(spameur == false){
+                            props.setActiveStep(1);
+                            resetForm();
+                            setStatus({ success: true });
+                            setSubmitting(false);
+                        } 
                     } catch (err) {
+                        console.log(err);
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
                         setSubmitting(false);
@@ -77,6 +101,80 @@ export default function Contact(props) {
                             xs={12}
                             >
                                 <TextField
+                                    error={Boolean(touched.lastnamekljh && errors.lastnamekljh)}
+                                    helperText={touched.lastnamekljh && errors.lastnamekljh}
+                                    fullWidth
+                                    label="Prénom"
+                                    name="lastnamekljh"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.lastnamekljh}
+                                    variant="outlined"
+                                />
+                            </Grid>
+                            <Grid
+                            item
+                            md={6}
+                            xs={12}
+                            >
+                                <TextField
+                                    error={Boolean(touched.firstnamekljh && errors.firstnamekljh)}
+                                    helperText={touched.firstnamekljh && errors.firstnamekljh}
+                                    fullWidth
+                                    label="Nom"
+                                    name="firstnamekljh"
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.firstnamekljh}
+                                    required
+                                    variant="outlined"
+                                />
+                            </Grid>
+                            <Grid
+                            item
+                            md={6}
+                            xs={12}
+                            >
+                                <TextField
+                                    error={Boolean(touched.emailkljh && errors.emailkljh)}
+                                    helperText={touched.emailkljh && errors.emailkljh}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    value={values.emailkljh}
+                                    fullWidth
+                                    label="Email"
+                                    name="emailkljh"
+                                    type="email"
+                                    required
+                                    variant="outlined"
+                                />
+                            </Grid>
+                            <Grid
+                            item
+                            md={6}
+                            xs={12}
+                            >
+                                <PhoneInput
+                                    inputClass={styles.phoneInput}
+                                    onChange={setPhone}
+                                    onBlur={handleBlur}
+                                    value={values.phonekljh}
+                                    specialLabel="Téléphone portable"
+                                    country={'fr'}
+                                    inputProps={{
+                                        name: 'phonekljh',
+                                        required: true,
+                                    }}
+                                />
+                               <p style={{color:'red',margin:'5px',fontSize:'12px'}}>{errors.phonekljh}</p>
+                            </Grid>  
+                            <Grid
+                            className={styles.ohnohoney}
+                            item
+                            md={6}
+                            xs={12}
+                            >
+                                <TextField
                                     error={Boolean(touched.lastname && errors.lastname)}
                                     helperText={touched.lastname && errors.lastname}
                                     fullWidth
@@ -89,6 +187,7 @@ export default function Contact(props) {
                                 />
                             </Grid>
                             <Grid
+                            className={styles.ohnohoney}
                             item
                             md={6}
                             xs={12}
@@ -102,11 +201,11 @@ export default function Contact(props) {
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     value={values.firstname}
-                                    required
                                     variant="outlined"
                                 />
                             </Grid>
                             <Grid
+                            className={styles.ohnohoney}
                             item
                             md={6}
                             xs={12}
@@ -121,28 +220,27 @@ export default function Contact(props) {
                                     label="Email"
                                     name="email"
                                     type="email"
-                                    required
                                     variant="outlined"
                                 />
                             </Grid>
                             <Grid
+                            className={styles.ohnohoney}
                             item
                             md={6}
                             xs={12}
                             >
-                                <TextField
+                                <PhoneInput
                                     error={Boolean(touched.phone && errors.phone)}
                                     helperText={touched.phone && errors.phone}
+                                    onChange={setPhone}
                                     onBlur={handleBlur}
-                                    onChange={handleChange}
                                     value={values.phone}
-                                    fullWidth
-                                    label="Télephone"
-                                    name="phone"
-                                    required
-                                    variant="outlined"
+                                    country={'fr'}
+                                    inputProps={{
+                                        name: 'phone',
+                                    }}
                                 />
-                            </Grid>  
+                            </Grid>
                             <Grid
                             item
                             md={12}
@@ -157,7 +255,21 @@ export default function Contact(props) {
                                 >
                                     Envoyer
                                 </Button>
-                            </Grid>    
+                            </Grid>
+                            {spameur?
+                                <Grid
+                                item
+                                md={12}
+                                xs={12}
+                                >
+                                    <Typography
+                                        variant="h5"
+                                        style={{textAlign: 'center'}}
+                                    >                               
+                                        ❌ HONEYPOT A TROUVÉ UN SPAMMER
+                                    </Typography>
+                                </Grid>  
+                            :null}  
                         </Grid>
                     </CardContent>
                 </form>

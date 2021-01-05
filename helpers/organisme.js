@@ -1,0 +1,16 @@
+export default [
+    { "text": "Opco Santé", "value": "Opco Santé" },
+    { "text": "Opco Mobilite", "value": "Opco Mobilite" },
+    { "text": "Opco Entreprises de Proximité", "value": "Opco Entreprises de Proximité" },
+    { "text": "Opco Construction Constructys", "value": "Opco Construction Constructys" },
+    { "text": "Opco Commerce", "value": "Opco Commerce" },
+    { "text": "Opco Cohésion sociale Uniformation", "value": "Opco Cohésion sociale Uniformation" },
+    { "text": "Opco Atlas", "value": "Opco Atlas" },
+    { "text": "Opco Akto", "value": "Opco Akto" },
+    { "text": "Opco Afdas", "value": "Opco Afdas" },
+    { "text": "Opco 2i", "value": "Opco 2i" },
+    { "text": "Opcapiat", "value": "Opcapiat" },
+    { "text": "FIFPLs", "value": "FIFPL" },
+    { "text": "Agefice", "value": "Agefice" },
+    { "text": "Autre", "value": "Autre" },
+];

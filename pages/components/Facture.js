@@ -19,9 +19,11 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import countries from '../../helpers/countries';
+import organismes from '../../helpers/organisme';
 import BusinessIcon from '@material-ui/icons/Business';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import PersonIcon from '@material-ui/icons/Person';
+
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -61,13 +63,16 @@ export default function Facture(props) {
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
     };
+    //const [didMount, setDidMount] = useState(false); 
+    //const [state, setState] = useState({});
+
     useEffect(() => {
-        if (typeof window !== "undefined") {
+        async function myFunction(){
             setAddress(JSON.parse(localStorage.getItem('dataAddress')))
         }
+        myFunction(); // This worked for me
         
-    }, [])
-    console.log(address)
+    }, []);
     return (
         <Box className={styles.body}>
             <div className={styles.tabPanel}>
@@ -90,14 +95,14 @@ export default function Facture(props) {
                     state: address?address.state:'',
                     code:  address?address.code:'',
                     address:  address?address.address:'',
-                    country:  address?address.country:countries[73].text,
+                    country:  address?address.country:countries[73],
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
-                    country: Yup.string().max(50).required('Merci de renseigner le pays'),
+                    country: Yup.object().shape({text: Yup.string().required('Merci de renseigner le pays')})
                 })}
                 onSubmit={async (values, {
                     resetForm,
@@ -205,14 +210,15 @@ export default function Facture(props) {
                                             getOptionLabel={(option) => option.text}
                                             options={countries}
                                             defaultValue={countries[73]}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.country}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}
-                                                    helperText={touched.country && errors.country}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.country}
+                                                    helperText={touched.country && errors.country}        
                                                     fullWidth
+                                                    value={values.country.text}
                                                     label="Pays"
                                                     name="country"
                                                     variant="outlined"
@@ -256,15 +262,14 @@ export default function Facture(props) {
                     code:  address?address.code:'',
                     address:  address?address.address:'',
                     country:  address?address.country:countries[73].text,
-                    organisem:'',
-                    submit: null
+                    organisme:'',
                 }}
                 validationSchema={Yup.object().shape({
-                    organisme: Yup.string().max(30).required('Merci de renseigner l\'organisme'),
+                    organisme: Yup.string().required('Merci de renseigner l\'organisme'),
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
-                    country: Yup.string().max(50).required('Merci de renseigner le pays'),
+                    country: Yup.object().shape({text: Yup.string().required('Merci de renseigner le pays')})
                 })}
                 onSubmit={async (values, {
                     resetForm,
@@ -310,18 +315,26 @@ export default function Facture(props) {
                                     md={12}
                                     xs={12}
                                     >
-                                    <TextField
-                                        error={Boolean(touched.organisme && errors.organisme)}
-                                        helperText={touched.organisme && errors.organisme}
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.organisme}
-                                        fullWidth
-                                        label="Votre organisme"
-                                        name="organisme"
-                                        required
-                                        variant="outlined"
-                                    />
+                                        <Autocomplete
+                                            className={styles.autocompleted}
+                                            getOptionLabel={(option) => option.text}
+                                            options={organismes}
+                                            defaultValue={countries[73]}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    error={Boolean(touched.organisme && errors.organisme)}
+                                                    helperText={touched.organisme && errors.organisme}
+                                                    onBlur={handleBlur}
+                                                    onChange={handleChange}
+                                                    value={values.organisme}
+                                                    fullWidth
+                                                    label="Organisme"
+                                                    name="organisme"
+                                                    variant="outlined"
+                                                    {...params}
+                                                />
+                                            )}
+                                        />
                                     </Grid>
                                     <Grid
                                         item
@@ -387,13 +400,14 @@ export default function Facture(props) {
                                             getOptionLabel={(option) => option.text}
                                             options={countries}
                                             defaultValue={countries[73]}
+                                            value={values.country}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}
                                                     helperText={touched.country && errors.country}
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
-                                                    value={values.country}
+                                                    value={values.country.text}
                                                     fullWidth
                                                     label="Pays"
                                                     name="country"
@@ -452,7 +466,7 @@ export default function Facture(props) {
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
-                    country: Yup.string().max(50).required('Merci de renseigner le pays'),
+                    country: Yup.object().shape({text: Yup.string().required('Merci de renseigner le pays')}),
                     company:Yup.string().max(50).required('Merci de renseigner le nom de l\'entreprise')
                 })}
                 onSubmit={async (values, {
@@ -576,13 +590,14 @@ export default function Facture(props) {
                                             getOptionLabel={(option) => option.text}
                                             options={countries}
                                             defaultValue={countries[73]}
+                                            value={values.country}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}
                                                     helperText={touched.country && errors.country}
                                                     onBlur={handleBlur}
                                                     onChange={handleChange}
-                                                    value={values.country}
+                                                    value={values.country.text}
                                                     fullWidth
                                                     label="Pays"
                                                     name="country"
