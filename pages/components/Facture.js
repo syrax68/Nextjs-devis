@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import styles from '../../styles/modal.module.css';
 import * as Yup from 'yup';
@@ -19,6 +19,9 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import countries from '../../helpers/countries';
+import BusinessIcon from '@material-ui/icons/Business';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import PersonIcon from '@material-ui/icons/Person';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -54,9 +57,17 @@ function a11yProps(index) {
 }
 export default function Facture(props) {
     const [value, setValue] = React.useState(0);
+    const [address, setAddress] = useState();
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
     };
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setAddress(JSON.parse(localStorage.getItem('dataAddress')))
+        }
+        
+    }, [])
+    console.log(address)
     return (
         <Box className={styles.body}>
             <div className={styles.tabPanel}>
@@ -69,22 +80,20 @@ export default function Facture(props) {
                 textColor="primary"
                 className={styles.menuBar}
             >
-                <Tab className={[styles.menu, styles.menuleft].join(' ')} label="Particulier" {...a11yProps(0)} style={{width: "33.33%"}}/>
-                <Tab className={styles.menu} label="Organisme" {...a11yProps(1)} style={{width: "33.33%"}}/>
-                <Tab className={[styles.menu, styles.menuright].join(' ')} label="Entreprise" {...a11yProps(2)} style={{width: "33.33%"}}/>
+                <Tab className={[styles.menu, styles.menuleft].join(' ')} label="Particulier" {...a11yProps(0)} icon={<PersonIcon/>} style={{width: "33.33%"}}/>
+                <Tab className={styles.menu} label="Organisme" {...a11yProps(1)} style={{width: "33.33%"}} icon={<PeopleAltIcon/>}/>
+                <Tab className={[styles.menu, styles.menuright].join(' ')} label="Entreprise" {...a11yProps(2)} icon={<BusinessIcon/>} style={{width: "33.33%"}}/>
             </Tabs>
             <Formik
                 enableReinitialize
                 initialValues={{
-                    name: '',
-                    state: '',
-                    code: '',
-                    address: '',
-                    country: countries[73].text,
+                    state: address?address.state:'',
+                    code:  address?address.code:'',
+                    address:  address?address.address:'',
+                    country:  address?address.country:countries[73].text,
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    name: Yup.string().max(30).required('Merci de renseigner le nom'),
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
@@ -102,6 +111,9 @@ export default function Facture(props) {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
+                        if (typeof window !== "undefined") {
+                            localStorage.setItem('dataFacture',JSON.stringify(values))    
+                        }
                         return props.setActiveStep(3)
                     } catch (err) {
                         console.error(err);
@@ -129,24 +141,6 @@ export default function Facture(props) {
                                     container
                                     spacing={2}
                                 >
-                                    <Grid
-                                        item
-                                        md={12}
-                                        xs={12}
-                                    >
-                                        <TextField
-                                            error={Boolean(touched.name && errors.name)}
-                                            helperText={touched.name && errors.name}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.name}
-                                            fullWidth
-                                            label="Nom"
-                                            name="name"
-                                            required
-                                            variant="outlined"
-                                        />
-                                    </Grid>
                                     <Grid
                                         item
                                         md={6}
@@ -258,16 +252,14 @@ export default function Facture(props) {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    name: '',
-                    state: '',
-                    code: '',
-                    address: '',
-                    country: countries[73].text,
+                    state: address?address.state:'',
+                    code:  address?address.code:'',
+                    address:  address?address.address:'',
+                    country:  address?address.country:countries[73].text,
                     organisem:'',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({
-                    name: Yup.string().max(30).required('Merci de renseigner le nom'),
                     organisme: Yup.string().max(30).required('Merci de renseigner l\'organisme'),
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
@@ -327,24 +319,6 @@ export default function Facture(props) {
                                         fullWidth
                                         label="Votre organisme"
                                         name="organisme"
-                                        required
-                                        variant="outlined"
-                                    />
-                                    </Grid>
-                                    <Grid
-                                    item
-                                    md={12}
-                                    xs={12}
-                                    >
-                                    <TextField
-                                        error={Boolean(touched.name && errors.name)}
-                                        helperText={touched.name && errors.name}
-                                        onBlur={handleBlur}
-                                        onChange={handleChange}
-                                        value={values.name}
-                                        fullWidth
-                                        label="Nom"
-                                        name="name"
                                         required
                                         variant="outlined"
                                     />
@@ -467,11 +441,11 @@ export default function Facture(props) {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    state: '',
-                    code: '',
-                    address: '',
-                    country: countries[73].text,
-                    company:'',
+                    state: address?address.state:'',
+                    code:  address?address.code:'',
+                    address:  address?address.address:'',
+                    country:  address?address.country:countries[73].text,
+                    company: address?address.company?address.company:'':'',
                     submit: null
                 }}
                 validationSchema={Yup.object().shape({

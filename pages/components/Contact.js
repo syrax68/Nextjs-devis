@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import styles from '../../styles/modal.module.css';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 export default function Contact(props) {
-
+    
     return (
         <div className={styles.body}>   
             <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
@@ -28,7 +28,7 @@ export default function Contact(props) {
                 validationSchema={Yup.object().shape({
                     firstname: Yup.string().max(30).required('Merci de renseigner votre nom'),
                     lastname: Yup.string().max(30).required('Merci de renseigner votre prénom'),
-                    email: Yup.string().email('Invalid email').required('L\'adresse email est requise'),
+                    email: Yup.string().email('Merci de corriger votre Email').required('L\'adresse email est requise'),
                     phone: Yup.string().max(30).required('Le numero téléphone est requise'),
                 })}
                 onSubmit={async (values, {
@@ -44,7 +44,7 @@ export default function Contact(props) {
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
-                            localStorage.setItem('data',JSON.stringify(values))    
+                            localStorage.setItem('dataContact',JSON.stringify(values))    
                         }
                         return props.setActiveStep(1)
                     } catch (err) {

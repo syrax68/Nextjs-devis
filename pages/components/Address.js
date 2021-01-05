@@ -59,7 +59,7 @@ const Address = (props) => {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            setContact(JSON.parse(localStorage.getItem('data')))    
+            setContact(JSON.parse(localStorage.getItem('dataContact')))    
         }
         textareaRef.current? textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n'):null;
     },[value, setContact])
@@ -80,7 +80,7 @@ const Address = (props) => {
                 className={styles.menuBar}
             >
                 <Tab className={[styles.menu , styles.menuleft].join(' ')} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(0)} />
-                <Tab className={[styles.menu , styles.menuright].join(' ')} label="Professionnel" icon={<Avatar alt="avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(1)} />
+                <Tab className={[styles.menu , styles.menuright].join(' ')} label="Professionnel" icon={<Avatar alt="avatar" src="/image/professional.png" />} style={{ width: "50%" }} {...a11yProps(1)} />
             </Tabs>
             <Formik
                 enableReinitialize
@@ -98,7 +98,7 @@ const Address = (props) => {
                     firstname: Yup.string().max(30).required('Merci de renseigner votre nom'),
                     lastname: Yup.string().max(30).required('Merci de renseigner votre prénom'),
                     state: Yup.string().required('Merci de renseigner votre ville'),
-                    code: Yup.number().min(0).required('Merci de renseigner votre code postal'),
+                    code: Yup.number().typeError('Le code postal doit être un nombre').required('Merci de renseigner votre code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
                     country: Yup.string().max(50).required('Merci de renseigner votre pays'),
                     message: Yup.string().max(255),
@@ -115,6 +115,9 @@ const Address = (props) => {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
+                        if (typeof window !== "undefined") {
+                            localStorage.setItem('dataAddress',JSON.stringify(values))    
+                        }
                         return props.setActiveStep(2)
                     } catch (err) {
                         setStatus({ success: false });
@@ -317,7 +320,7 @@ const Address = (props) => {
                 }}
                 validationSchema={Yup.object().shape({
                     state: Yup.string().required(`Merci de renseigner la ville`),
-                    code: Yup.number().min(0).required(`Merci de renseigner le code postal`),
+                    code: Yup.number().typeError('Le code postal doit être un nombre').required(`Merci de renseigner le code postal`),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
                     country: Yup.string().max(50).required(`Merci de renseigner le pays`),
                     message: Yup.string().max(255),
@@ -335,6 +338,9 @@ const Address = (props) => {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
+                        if (typeof window !== "undefined") {
+                            localStorage.setItem('dataAddress',JSON.stringify(values))    
+                        }
                         return props.setActiveStep(2)
                     } catch (err) {
                         setStatus({ success: false });

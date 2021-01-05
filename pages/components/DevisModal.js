@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Head from 'next/head';
 import styles from '../../styles/modal.module.css';
 import PropTypes from 'prop-types';
@@ -174,8 +174,8 @@ function getSteps() {
 }
   
 export default function Devis() {
-    const [open, setOpen] = React.useState(true);
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [open, setOpen] = useState(true);
+    const [activeStep, setActiveStep] = useState(0);
     const steps = getSteps();
 
     const handleNext = () => {
@@ -183,6 +183,7 @@ export default function Devis() {
     };
 
     const handleReset = () => {
+        localStorage.clear();
         setActiveStep(0);
     };
     const handleClose = () => {
@@ -249,7 +250,7 @@ export default function Devis() {
                               className={styles.footerEnd}
                             >
                             <Button onClick={handleReset} className={styles.buttonReset}>
-                              Faire une nouvelle demande
+                                Faire une nouvelle demande
                             </Button>
                           </Box>
                         </>
