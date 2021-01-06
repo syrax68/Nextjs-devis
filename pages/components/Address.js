@@ -56,14 +56,16 @@ const Address = (props) => {
     const [value, setValue] = useState(0);
     const [contact, setContact] = useState();
     const [country, setCountry] = useState();
+    const [address, setAddress] = useState();
     const textareaRef = useRef();
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            setContact(JSON.parse(localStorage.getItem('dataContact')))    
+            setContact(JSON.parse(localStorage.getItem('dataContact')))
+            setAddress(JSON.parse(localStorage.getItem('dataAddress')))    
         }
         textareaRef.current? textareaRef.current.placeholder = textareaRef.current.placeholder.replace(/\\n/g, '\n'):null;
-    },[value, setContact])
+    },[value, setContact, setAddress])
     
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
@@ -89,14 +91,13 @@ const Address = (props) => {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    firstname: contact?contact.firstnamekljh:'',
-                    lastname: contact?contact.lastnamekljh:'',
-                    state: '',
-                    code: '',
-                    address: '',
-                    country: country?country:countries[73],
-                    message: '',
-                    submit: null
+                    firstname: address?address.firstname:contact?contact.firstnamekljh:'',
+                    lastname: address?address.lastname:contact?contact.lastnamekljh:'',
+                    state: address?address.state:'',
+                    code: address?address.code:'',
+                    address: address?address.address:'',
+                    country: address?address.country:country?country:countries[73],
+                    message: address?address.message:'',
                 }}
                 validationSchema={Yup.object().shape({
                     firstname: Yup.string().max(30).required('Merci de renseigner votre nom'),
@@ -115,13 +116,15 @@ const Address = (props) => {
                 }) => {
                     try {
                         // NOTE: Make API request
-                        console.log(values);
+                        console.log(address);
                         await wait(200);
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
-                            values.country = country?country:countries[73];
+                            if(country){
+                                values.country = country?country:countries[73];
+                            }
                             localStorage.setItem('dataAddress',JSON.stringify(values))    
                         }
                         return props.setActiveStep(2)
@@ -316,12 +319,14 @@ const Address = (props) => {
             <Formik
                 enableReinitialize
                 initialValues={{
-                    state: '',
-                    code: '',
-                    address: '',
-                    country: country?country.text?country.text:countries[73].text:countries[73].text,
-                    message: '',
-                    company:''
+                    firstname: address?address.firstname:contact?contact.firstnamekljh:'',
+                    lastname: address?address.lastname:contact?contact.lastnamekljh:'',
+                    state: address?address.state:'',
+                    code: address?address.code:'',
+                    address: address?address.address:'',
+                    country: address?address.country:country?country:countries[73],
+                    message: address?address.message:'',
+                    company: address?address.company:'',
                 }}
                 validationSchema={Yup.object().shape({
                     state: Yup.string().required(`Merci de renseigner la ville`),
