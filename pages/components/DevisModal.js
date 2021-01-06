@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Head from 'next/head';
 import styles from '../../styles/modal.module.css';
 import PropTypes from 'prop-types';
@@ -175,24 +175,27 @@ function getSteps() {
 }
   
 export default function Devis() {
-    const [open, setOpen] = useState(true);
-    const [activeStep, setActiveStep] = useState(0);
-    const steps = getSteps();
+  const [open, setOpen] = useState(true);
+  const [activeStep, setActiveStep] = useState(0);
+  const steps = getSteps();
 
-    const handleNext = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    };
-    const handleBack = () => {
-        setActiveStep((prevActiveStep) => prevActiveStep - 1);
-    };
+  const handleNext = () => {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+  const handleBack = () => {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
-    const handleReset = () => {
-        localStorage.clear();
-        setActiveStep(0);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
+  const handleReset = () => {
+      localStorage.clear();
+      setActiveStep(0);
+  };
+  const handleClose = () => {
+      setOpen(false);
+  };
+  useEffect(()=>{
+    localStorage.clear();
+  },[])
   return (
       <main className={styles.main}>
         <Modal

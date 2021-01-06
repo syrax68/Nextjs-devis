@@ -13,9 +13,7 @@ import {
   TextField,
   Box,
   Tab,
-  Avatar,
   Tabs,
-  TextareaAutosize
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import countries from '../../helpers/countries';
@@ -61,13 +59,13 @@ export default function Facture(props) {
     const [value, setValue] = React.useState(0);
     const [address, setAddress] = useState();
     const [organisme, setOrganisme] = useState();
+    const [facture, setFacture] = useState()
     const [country, setCountry] = useState();
 
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
     };
-    //const [didMount, setDidMount] = useState(false); 
-    //const [state, setState] = useState({});
+
     const onChangeOrganisme = (event, values) => {
         setOrganisme(values);
     }
@@ -78,11 +76,16 @@ export default function Facture(props) {
     useEffect(() => {
         async function myFunction(){
             setAddress(JSON.parse(localStorage.getItem('dataAddress')))
+            if(localStorage.getItem('dataFacture')){
+                setFacture(JSON.parse(localStorage.getItem('dataFacture')));
+            }
         }
         myFunction(); // This worked for me
         
     }, []);
-    console.log(localStorage.getItem('dataAddress'));
+    console.log(facture);
+    console.log(address);
+    console.log(country);
     return (
         <Box className={styles.body}>
             <div className={styles.tabPanel}>
@@ -105,7 +108,7 @@ export default function Facture(props) {
                     state: address?address.state:'',
                     code:  address?address.code:'',
                     address:  address?address.address:'',
-                    country:  address?address.country:countries[73],
+                    country:  facture?facture.country:address?address.country:countries[73],
                 }}
                 validationSchema={Yup.object().shape({
                     state: Yup.string().required('Merci de renseigner la ville'),
@@ -126,7 +129,9 @@ export default function Facture(props) {
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
-                            values.country = country;
+                            if(country){
+                                values.country = country;
+                            }
                             localStorage.setItem('dataFacture',JSON.stringify(values))    
                         }
                         return props.setActiveStep(3)
@@ -219,7 +224,7 @@ export default function Facture(props) {
                                             className={styles.autocompleted}
                                             getOptionLabel={(option) => option.text}
                                             options={countries}
-                                            defaultValue={countries[73]}
+                                            //defaultValue={countries[73]}
                                             onBlur={handleBlur}
                                             onChange={onChangeCountry}
                                             value={values.country}
@@ -270,8 +275,8 @@ export default function Facture(props) {
                     state: address?address.state:'',
                     code:  address?address.code:'',
                     address:  address?address.address:'',
-                    country:  address?address.country:countries[73],
-                    organisme: organisme?organisme:'',
+                    country:  facture?facture.country:address?address.country:countries[73],
+                    organisme: organisme?organisme:facture?facture.organisme:'',
                 }}
                 validationSchema={Yup.object().shape({
                     organisme: Yup.object().required('Merci de renseigner l\'organisme'),
@@ -293,8 +298,12 @@ export default function Facture(props) {
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
-                            values.country = country;
-                            values.organisme = organisme;
+                            if(country){
+                                values.country = country;
+                            }
+                            if(organisme){
+                                values.organisme = organisme;
+                            }
                             localStorage.setItem('dataFacture',JSON.stringify(values))    
                         }
                         return props.setActiveStep(3)
@@ -335,6 +344,7 @@ export default function Facture(props) {
                                             options={organismes}
                                             onBlur={handleBlur}
                                             onChange={onChangeOrganisme}
+                                            value={values.organisme}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.organisme && errors.organisme)}
@@ -469,9 +479,8 @@ export default function Facture(props) {
                     state: address?address.state:'',
                     code:  address?address.code:'',
                     address:  address?address.address:'',
-                    country:  address?address.country:countries[73],
-                    company: address?address.company?address.company:'':'',
-                    submit: null
+                    country:  facture?facture.country:address?address.country:countries[73],
+                    company: address?address.company?address.company:facture?facture.company:'':'',
                 }}
                 validationSchema={Yup.object().shape({
                     state: Yup.string().required('Merci de renseigner la ville'),
@@ -493,11 +502,13 @@ export default function Facture(props) {
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
-                            values.country = country;
+                            if(country){
+                                values.country = country;
+                            }
                             localStorage.setItem('dataFacture',JSON.stringify(values))    
                         }
                         return props.setActiveStep(3)
-                    } catch (err) {
+                    }catch (err) {
                         console.error(err);
                         setStatus({ success: false });
                         setErrors({ submit: err.message });
