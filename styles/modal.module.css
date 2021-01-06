@@ -68,6 +68,16 @@
     margin-left: 20px;
     margin-bottom: 20px;
 }
+.back {
+    position: absolute;
+    border: none;
+    background: transparent;
+    font-size: 30px;
+    left: 10px;
+}
+.back:hover {
+    cursor: pointer;
+}
 .close {
     position: absolute;
     border: none;

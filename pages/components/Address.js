@@ -71,7 +71,6 @@ const Address = (props) => {
     const onChangeCountry = (event, values) => {
         setCountry(values);
     }
-    console.log(country);
     return (
         <Box className={styles.body}>
             <TabPanel value={value} index={1} className={styles.tabPanel}>
@@ -95,7 +94,7 @@ const Address = (props) => {
                     state: '',
                     code: '',
                     address: '',
-                    country: country?country.text?country.text:countries[73].text:countries[73].text,
+                    country: country?country:countries[73],
                     message: '',
                     submit: null
                 }}
@@ -105,7 +104,7 @@ const Address = (props) => {
                     state: Yup.string().required('Merci de renseigner votre ville'),
                     code: Yup.number().typeError('Le code postal doit être un nombre').required('Merci de renseigner votre code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
-                    country: Yup.string().max(50).required('Merci de renseigner votre pays'),
+                    country: Yup.object().required('Merci de renseigner le pays'),
                     message: Yup.string().max(255),
                 })}
                 onSubmit={async (values, {
@@ -116,12 +115,13 @@ const Address = (props) => {
                 }) => {
                     try {
                         // NOTE: Make API request
+                        console.log(values);
                         await wait(200);
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
-                            values.country = country;
+                            values.country = country?country:countries[73];
                             localStorage.setItem('dataAddress',JSON.stringify(values))    
                         }
                         return props.setActiveStep(2)
@@ -271,7 +271,7 @@ const Address = (props) => {
                                     >
                                         <Typography component={'span'} variant={'body1'}>
                                             Message
-                                    </Typography>
+                                        </Typography>
                                         <TextareaAutosize
                                             error={Boolean(touched.message && errors.message)}
                                             onBlur={handleBlur}
@@ -319,7 +319,7 @@ const Address = (props) => {
                     state: '',
                     code: '',
                     address: '',
-                    country: countries[73].text,
+                    country: country?country.text?country.text:countries[73].text:countries[73].text,
                     message: '',
                     company:''
                 }}
@@ -327,7 +327,7 @@ const Address = (props) => {
                     state: Yup.string().required(`Merci de renseigner la ville`),
                     code: Yup.number().typeError('Le code postal doit être un nombre').required(`Merci de renseigner le code postal`),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
-                    country: Yup.string().max(50).required(`Merci de renseigner le pays`),
+                    country: Yup.object().required('Merci de renseigner le pays'),
                     message: Yup.string().max(255),
                     company: Yup.string().max(50).required(`Merci de renseigner l\'entreprise`)
                 })}
@@ -339,11 +339,13 @@ const Address = (props) => {
                 }) => {
                     try {
                         // NOTE: Make API request
+                        console.log(values)
                         await wait(200);
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
+                            values.country = country?country:countries[73];
                             localStorage.setItem('dataAddress',JSON.stringify(values))    
                         }
                         return props.setActiveStep(2)
@@ -455,7 +457,7 @@ const Address = (props) => {
                                             options={countries}
                                             defaultValue={countries[73]}
                                             onBlur={handleBlur}
-                                            onChange={handleChange}
+                                            onChange={onChangeCountry}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}

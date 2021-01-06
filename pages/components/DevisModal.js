@@ -22,6 +22,7 @@ import ContactIcon from '@material-ui/icons/PermIdentity';
 import HomeIcon from '@material-ui/icons/Home';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import StepConnector from '@material-ui/core/StepConnector';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Contact from './Contact';
 import Address from './Address';
 import Facture from './Facture';
@@ -181,6 +182,9 @@ export default function Devis() {
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
 
     const handleReset = () => {
         localStorage.clear();
@@ -205,6 +209,7 @@ export default function Devis() {
             <Fade in={open}>
                 <div className={styles.paper}>
                     <div className={styles.header}>      
+                        <button type="button" disabled={activeStep === 0} className={styles.back} aria-label="Previous" onClick={handleBack}><ArrowBackIcon color="secondary"/></button>
                         <Typography className={styles.title} id="ModalLabel">Demander un devis</Typography>
                         <button type="button" className={styles.close} data-dismiss="modal" aria-label="Close" onClick={handleClose}><span aria-hidden="true">×</span></button>
                     </div>
@@ -230,6 +235,7 @@ export default function Devis() {
                                   variant="body1"
                                   className={styles.center}
                                 >
+                                  {console.log(localStorage.getItem('dataFacture'))}
                                   Préparez votre Formation !
                                 </Typography>
                                 <Typography 

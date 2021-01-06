@@ -60,12 +60,21 @@ function a11yProps(index) {
 export default function Facture(props) {
     const [value, setValue] = React.useState(0);
     const [address, setAddress] = useState();
+    const [organisme, setOrganisme] = useState();
+    const [country, setCountry] = useState();
+
     const handleChangeTab = (event, newValue) => {
         setValue(newValue);
     };
     //const [didMount, setDidMount] = useState(false); 
     //const [state, setState] = useState({});
+    const onChangeOrganisme = (event, values) => {
+        setOrganisme(values);
+    }
 
+    const onChangeCountry = (event, values) => {
+        setCountry(values);
+    }
     useEffect(() => {
         async function myFunction(){
             setAddress(JSON.parse(localStorage.getItem('dataAddress')))
@@ -73,6 +82,7 @@ export default function Facture(props) {
         myFunction(); // This worked for me
         
     }, []);
+    console.log(localStorage.getItem('dataAddress'));
     return (
         <Box className={styles.body}>
             <div className={styles.tabPanel}>
@@ -96,13 +106,12 @@ export default function Facture(props) {
                     code:  address?address.code:'',
                     address:  address?address.address:'',
                     country:  address?address.country:countries[73],
-                    submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
-                    country: Yup.object().shape({text: Yup.string().required('Merci de renseigner le pays')})
+                    country: Yup.object().required('Merci de renseigner le pays')
                 })}
                 onSubmit={async (values, {
                     resetForm,
@@ -117,6 +126,7 @@ export default function Facture(props) {
                         setStatus({ success: true });
                         setSubmitting(false);
                         if (typeof window !== "undefined") {
+                            values.country = country;
                             localStorage.setItem('dataFacture',JSON.stringify(values))    
                         }
                         return props.setActiveStep(3)
@@ -211,14 +221,13 @@ export default function Facture(props) {
                                             options={countries}
                                             defaultValue={countries[73]}
                                             onBlur={handleBlur}
-                                            onChange={handleChange}
+                                            onChange={onChangeCountry}
                                             value={values.country}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}
                                                     helperText={touched.country && errors.country}        
                                                     fullWidth
-                                                    value={values.country.text}
                                                     label="Pays"
                                                     name="country"
                                                     variant="outlined"
@@ -261,15 +270,15 @@ export default function Facture(props) {
                     state: address?address.state:'',
                     code:  address?address.code:'',
                     address:  address?address.address:'',
-                    country:  address?address.country:countries[73].text,
-                    organisme:'',
+                    country:  address?address.country:countries[73],
+                    organisme: organisme?organisme:'',
                 }}
                 validationSchema={Yup.object().shape({
-                    organisme: Yup.string().required('Merci de renseigner l\'organisme'),
+                    organisme: Yup.object().required('Merci de renseigner l\'organisme'),
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
-                    country: Yup.object().shape({text: Yup.string().required('Merci de renseigner le pays')})
+                    country: Yup.object().required('Merci de renseigner le pays')
                 })}
                 onSubmit={async (values, {
                     resetForm,
@@ -283,6 +292,11 @@ export default function Facture(props) {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
+                        if (typeof window !== "undefined") {
+                            values.country = country;
+                            values.organisme = organisme;
+                            localStorage.setItem('dataFacture',JSON.stringify(values))    
+                        }
                         return props.setActiveStep(3)
                     } catch (err) {
                         console.error(err);
@@ -319,14 +333,12 @@ export default function Facture(props) {
                                             className={styles.autocompleted}
                                             getOptionLabel={(option) => option.text}
                                             options={organismes}
-                                            defaultValue={countries[73]}
+                                            onBlur={handleBlur}
+                                            onChange={onChangeOrganisme}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.organisme && errors.organisme)}
                                                     helperText={touched.organisme && errors.organisme}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.organisme}
                                                     fullWidth
                                                     label="Organisme"
                                                     name="organisme"
@@ -400,14 +412,13 @@ export default function Facture(props) {
                                             getOptionLabel={(option) => option.text}
                                             options={countries}
                                             defaultValue={countries[73]}
+                                            onBlur={handleBlur}
+                                            onChange={onChangeCountry}
                                             value={values.country}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}
-                                                    helperText={touched.country && errors.country}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.country.text}
+                                                    helperText={touched.country && errors.country}        
                                                     fullWidth
                                                     label="Pays"
                                                     name="country"
@@ -458,7 +469,7 @@ export default function Facture(props) {
                     state: address?address.state:'',
                     code:  address?address.code:'',
                     address:  address?address.address:'',
-                    country:  address?address.country:countries[73].text,
+                    country:  address?address.country:countries[73],
                     company: address?address.company?address.company:'':'',
                     submit: null
                 }}
@@ -466,7 +477,7 @@ export default function Facture(props) {
                     state: Yup.string().required('Merci de renseigner la ville'),
                     code: Yup.number().min(0).required('Merci de renseigner le code postal'),
                     address: Yup.string().max(50).required(`Merci de renseigner l\'adresse`),
-                    country: Yup.object().shape({text: Yup.string().required('Merci de renseigner le pays')}),
+                    country: Yup.object().required('Merci de renseigner le pays'),
                     company:Yup.string().max(50).required('Merci de renseigner le nom de l\'entreprise')
                 })}
                 onSubmit={async (values, {
@@ -481,6 +492,10 @@ export default function Facture(props) {
                         resetForm();
                         setStatus({ success: true });
                         setSubmitting(false);
+                        if (typeof window !== "undefined") {
+                            values.country = country;
+                            localStorage.setItem('dataFacture',JSON.stringify(values))    
+                        }
                         return props.setActiveStep(3)
                     } catch (err) {
                         console.error(err);
@@ -590,14 +605,13 @@ export default function Facture(props) {
                                             getOptionLabel={(option) => option.text}
                                             options={countries}
                                             defaultValue={countries[73]}
+                                            onBlur={handleBlur}
+                                            onChange={onChangeCountry}
                                             value={values.country}
                                             renderInput={(params) => (
                                                 <TextField
                                                     error={Boolean(touched.country && errors.country)}
-                                                    helperText={touched.country && errors.country}
-                                                    onBlur={handleBlur}
-                                                    onChange={handleChange}
-                                                    value={values.country.text}
+                                                    helperText={touched.country && errors.country}        
                                                     fullWidth
                                                     label="Pays"
                                                     name="country"
