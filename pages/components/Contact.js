@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from '../../styles/modal.module.css';
 import * as Yup from 'yup';
 import 'yup-phone';
@@ -19,22 +19,29 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 export default function Contact(props) {
     const [spameur, setSpam] = useState(false);
     const [phone, setPhone] = useState();
+    const [contact, setContact] = useState();
     const honeypot_validade = (req) => {          
         if(req.firstname || req.lastname || req.email){
             return true; 
         }
         return false;
     }
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setContact(JSON.parse(localStorage.getItem('dataContact')))    
+        }
+    },[setContact]);
+    console.log(contact)
     return (
         <div className={styles.body}>   
             <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
             <Formik
                 enableReinitialize
                 initialValues={{
-                    firstnamekljh:'',
-                    lastnamekljh:'',
-                    emailkljh:'',
-                    phonekljh:phone?phone:'',
+                    firstnamekljh:contact?contact.firstnamekljh:'',
+                    lastnamekljh:contact?contact.lastnamekljh:'',
+                    emailkljh:contact?contact.emailkljh:'',
+                    phonekljh:contact?contact.phonekljh:phone?phone:'',
                     firstname:'',
                     lastname:'',
                     email:'',
