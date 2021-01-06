@@ -95,9 +95,9 @@ export default function Facture(props) {
                 textColor="primary"
                 className={styles.menuBar}
             >
-                <Tab className={[styles.menu, styles.menuleft].join(' ')} label="Particulier" {...a11yProps(0)} icon={<PersonIcon/>} style={{width: "33.33%"}}/>
-                <Tab className={styles.menu} label="Organisme" {...a11yProps(1)} style={{width: "33.33%"}} icon={<PeopleAltIcon/>}/>
-                <Tab className={[styles.menu, styles.menuright].join(' ')} label="Entreprise" {...a11yProps(2)} icon={<BusinessIcon/>} style={{width: "33.33%"}}/>
+                <Tab className={[styles.menu, styles.menuleft, value===0?styles.activeTab:null].join(' ')} label="Particulier" {...a11yProps(0)} icon={<PersonIcon/>} style={{width: "33.33%"}}/>
+                <Tab className={[styles.menu, value===1?styles.activeTab:null].join(' ')} label="Organisme" {...a11yProps(1)} style={{width: "33.33%"}} icon={<PeopleAltIcon/>}/>
+                <Tab className={[styles.menu, styles.menuright, value===2?styles.activeTab:null].join(' ')} label="Entreprise" {...a11yProps(2)} icon={<BusinessIcon/>} style={{width: "33.33%"}}/>
             </Tabs>
             <Formik
                 enableReinitialize
@@ -157,6 +157,7 @@ export default function Facture(props) {
                                 <Grid
                                     container
                                     spacing={2}
+                                    className={styles.container}
                                 >
                                     <Grid
                                         item
@@ -329,6 +330,7 @@ export default function Facture(props) {
                                 <Grid
                                     container
                                     spacing={2}
+                                    className={styles.container}
                                 >
                                     <Grid
                                     item
@@ -530,6 +532,7 @@ export default function Facture(props) {
                                 <Grid
                                     container
                                     spacing={2}
+                                    className={styles.container}
                                 >
                                     <Grid
                                     item

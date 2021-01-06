@@ -109,6 +109,7 @@ export default function Contact(props) {
                         <Grid
                             container
                             spacing={2}
+                            className={styles.container}
                         >
                             <Grid
                             item

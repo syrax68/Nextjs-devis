@@ -85,8 +85,8 @@ const Address = (props) => {
                 textColor="primary"
                 className={styles.menuBar}
             >
-                <Tab className={[styles.menu , styles.menuleft].join(' ')} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(0)} />
-                <Tab className={[styles.menu , styles.menuright].join(' ')} label="Professionnel" icon={<Avatar alt="avatar" src="/image/professional.png" />} style={{ width: "50%" }} {...a11yProps(1)} />
+                <Tab className={[styles.menu , styles.menuleft, value===0?styles.activeTab:null].join(' ')} label="Particulier" icon={<Avatar alt="test avatar" src="/image/personal.png" />} style={{ width: "50%" }} {...a11yProps(0)} />
+                <Tab className={[styles.menu , styles.menuright, value===1?styles.activeTab:null].join(' ')} label="Professionnel" icon={<Avatar alt="avatar" src="/image/professional.png" />} style={{ width: "50%" }} {...a11yProps(1)} />
             </Tabs>
             <Formik
                 enableReinitialize
@@ -152,6 +152,7 @@ const Address = (props) => {
                                 <Grid
                                     container
                                     spacing={2}
+                                    className={styles.container}
                                 >
                                     <Grid
                                         item
@@ -378,6 +379,7 @@ const Address = (props) => {
                                 <Grid
                                     container
                                     spacing={2}
+                                    className={styles.container}
                                 >
                                     <Grid
                                         item
