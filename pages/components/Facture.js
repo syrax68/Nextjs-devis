@@ -83,9 +83,6 @@ export default function Facture(props) {
         myFunction(); // This worked for me
         
     }, []);
-    console.log(facture);
-    console.log(address);
-    console.log(country);
     return (
         <Box className={styles.body}>
             <div className={styles.tabPanel}>
@@ -382,24 +379,6 @@ export default function Facture(props) {
                                         xs={12}
                                     >
                                         <TextField
-                                            error={Boolean(touched.code && errors.code)}
-                                            helperText={touched.code && errors.code}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.code}
-                                            fullWidth
-                                            label="Code Postal"
-                                            name="code"
-                                            required
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        md={6}
-                                        xs={12}
-                                    >
-                                        <TextField
                                             error={Boolean(touched.address && errors.address)}
                                             helperText={touched.address && errors.address}
                                             onBlur={handleBlur}
@@ -415,7 +394,25 @@ export default function Facture(props) {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
+                                        xs={6}
+                                    >
+                                        <TextField
+                                            error={Boolean(touched.code && errors.code)}
+                                            helperText={touched.code && errors.code}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.code}
+                                            fullWidth
+                                            label="Code Postal"
+                                            name="code"
+                                            required
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        md={6}
+                                        xs={6}
                                     >
                                         <Autocomplete
                                             className={styles.autocompleted}
@@ -576,24 +573,6 @@ export default function Facture(props) {
                                         xs={12}
                                     >
                                         <TextField
-                                            error={Boolean(touched.code && errors.code)}
-                                            helperText={touched.code && errors.code}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.code}
-                                            fullWidth
-                                            label="Code Postal"
-                                            name="code"
-                                            required
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        md={6}
-                                        xs={12}
-                                    >
-                                        <TextField
                                             error={Boolean(touched.address && errors.address)}
                                             helperText={touched.address && errors.address}
                                             onBlur={handleBlur}
@@ -609,7 +588,25 @@ export default function Facture(props) {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
+                                        xs={6}
+                                    >
+                                        <TextField
+                                            error={Boolean(touched.code && errors.code)}
+                                            helperText={touched.code && errors.code}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.code}
+                                            fullWidth
+                                            label="Code Postal"
+                                            name="code"
+                                            required
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        md={6}
+                                        xs={6}
                                     >
                                         <Autocomplete
                                             className={styles.autocompleted}

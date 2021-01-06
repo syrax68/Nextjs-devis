@@ -35,9 +35,9 @@ export default function Contact(props) {
                     lastnamekljh:'',
                     emailkljh:'',
                     phonekljh:phone?phone:'',
-                    firstname:'fdsafsdafsadf',
-                    lastname:'dsfsadfasf',
-                    email:'fsafsdafasdf@gmail.com',
+                    firstname:'',
+                    lastname:'',
+                    email:'',
                     phone:'',
                 }}
                 validationSchema={Yup.object().shape({
@@ -59,17 +59,25 @@ export default function Contact(props) {
                     try {
                     // NOTE: Make API request
                         await wait(200);
-                        honeypot_validade(values)=== true?setSpam(true):setSpam(false);
-                        console.log(spameur)
-                        if (typeof window !== "undefined") {
-                            localStorage.setItem('dataContact',JSON.stringify(values))    
-                        }
-                        if(spameur == false){
+                        console.log(values.emailkljh)
+                        fetch('http://apilayer.net/api/check?access_key=2169bfdcde44c79d26efaf608c547ab6&email='+values.emailkljh+'&smtp=1&format=1')
+                        .then((response) => response.json())
+                        .then(data => {
+                            console.log(data);
+                        });
+                        
+                        if(values.firstname || values.lastname){
+                            setSpam(true);
+                        }else{
+                            if (typeof window !== "undefined") {
+                                localStorage.setItem('dataContact',JSON.stringify(values))    
+                            }
                             props.setActiveStep(1);
                             resetForm();
                             setStatus({ success: true });
                             setSubmitting(false);
-                        } 
+                        }
+                        
                     } catch (err) {
                         console.log(err);
                         setStatus({ success: false });

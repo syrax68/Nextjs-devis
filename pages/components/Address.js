@@ -153,7 +153,7 @@ const Address = (props) => {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
+                                        xs={6}
                                     >
                                         <TextField
                                             error={Boolean(touched.lastname && errors.lastname)}
@@ -170,7 +170,7 @@ const Address = (props) => {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
+                                        xs={6}
                                     >
                                         <TextField
                                             error={Boolean(touched.firstname && errors.firstname)}
@@ -188,7 +188,7 @@ const Address = (props) => {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
+                                        xs={6}
                                     >
                                         <TextField
                                             error={Boolean(touched.state && errors.state)}
@@ -206,25 +206,7 @@ const Address = (props) => {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
-                                    >
-                                        <TextField
-                                            error={Boolean(touched.code && errors.code)}
-                                            helperText={touched.code && errors.code}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.code}
-                                            fullWidth
-                                            label="Code Postal"
-                                            name="code"
-                                            required
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        md={6}
-                                        xs={12}
+                                        xs={6}
                                     >
                                         <TextField
                                             error={Boolean(touched.address && errors.address)}
@@ -242,7 +224,25 @@ const Address = (props) => {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
+                                        xs={6}
+                                    >
+                                        <TextField
+                                            error={Boolean(touched.code && errors.code)}
+                                            helperText={touched.code && errors.code}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.code}
+                                            fullWidth
+                                            label="Code Postal"
+                                            name="code"
+                                            required
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        md={6}
+                                        xs={6}
                                     >
                                         <Autocomplete
                                             className={styles.autocompleted}
@@ -395,7 +395,7 @@ const Address = (props) => {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
+                                        xs={6}
                                     >
                                         <TextField
                                             error={Boolean(touched.state && errors.state)}
@@ -413,25 +413,7 @@ const Address = (props) => {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
-                                    >
-                                        <TextField
-                                            error={Boolean(touched.code && errors.code)}
-                                            helperText={touched.code && errors.code}
-                                            onBlur={handleBlur}
-                                            onChange={handleChange}
-                                            value={values.code}
-                                            fullWidth
-                                            label="Code Postal"
-                                            name="code"
-                                            required
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        md={6}
-                                        xs={12}
+                                        xs={6}
                                     >
                                         <TextField
                                             error={Boolean(touched.address && errors.address)}
@@ -449,7 +431,25 @@ const Address = (props) => {
                                     <Grid
                                         item
                                         md={6}
-                                        xs={12}
+                                        xs={6}
+                                    >
+                                        <TextField
+                                            error={Boolean(touched.code && errors.code)}
+                                            helperText={touched.code && errors.code}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            value={values.code}
+                                            fullWidth
+                                            label="Code Postal"
+                                            name="code"
+                                            required
+                                            variant="outlined"
+                                        />
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        md={6}
+                                        xs={6}
                                     >
                                         <Autocomplete
                                             className={styles.autocompleted}
