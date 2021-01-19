@@ -9,7 +9,9 @@ import {
   CardContent,
   Typography,
   Grid,
-  TextField
+  TextField,
+  FormControlLabel,
+  Switch
 } from '@material-ui/core';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
@@ -20,6 +22,10 @@ export default function Contact(props) {
     const [spameur, setSpam] = useState(false);
     const [phone, setPhone] = useState();
     const [contact, setContact] = useState();
+    const [state, setState] = useState({
+        viaPhone: true,
+        viaEmail: true,
+      });
     const honeypot_validade = (req) => {          
         if(req.firstname || req.lastname || req.email){
             return true; 
@@ -31,7 +37,10 @@ export default function Contact(props) {
             setContact(JSON.parse(localStorage.getItem('dataContact')))    
         }
     },[setContact]);
-    console.log(contact)
+    const handleChangeContact = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+    };
+    console.log(state)
     return (
         <div className={styles.body}>   
             <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
@@ -175,7 +184,7 @@ export default function Contact(props) {
                                     onChange={setPhone}
                                     onBlur={handleBlur}
                                     value={values.phonekljh}
-                                    specialLabel="Téléphone portable"
+                                    specialLabel="Téléphone (mobile de préférence)"
                                     country={'fr'}
                                     inputProps={{
                                         name: 'phonekljh',
@@ -183,6 +192,45 @@ export default function Contact(props) {
                                     }}
                                 />
                                <p style={{color:'red',margin:'5px',fontSize:'12px'}}>{errors.phonekljh}</p>
+                            </Grid>
+                            <Typography className={styles.textmenu}>Prise de contact</Typography>
+                            <Grid
+                                item
+                                md={12}
+                                xs={12}
+                            >
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={state.viaPhone}
+                                        onChange={handleChangeContact}
+                                        classes={{
+                                            colorPrimary: styles.colorPrimary,
+                                            colorSecondary : styles.colorPrimary,
+                                            checked: styles.MuiChecked,
+                                            track: styles.track
+                                        }}
+                                        name="viaPhone" 
+                                    />
+                                }
+                                label="Par téléphone"
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={state.viaEmail}
+                                        onChange={handleChangeContact}
+                                        classes={{
+                                            colorPrimary: styles.colorPrimary,
+                                            colorSecondary : styles.colorPrimary,
+                                            checked: styles.MuiChecked,
+                                            track: styles.track
+                                        }}
+                                        name="viaEmail"
+                                    />
+                                }
+                                label="Par Email"
+                            />
                             </Grid>  
                             <Grid
                             className={styles.ohnohoney}

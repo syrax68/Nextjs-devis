@@ -212,7 +212,7 @@ export default function Devis() {
             <Fade in={open}>
                 <div className={styles.paper}>
                     <div className={styles.header}>      
-                        <button type="button" disabled={activeStep === 0} className={styles.back} aria-label="Previous" onClick={handleBack}><ArrowBackIcon style={{color:'black'}}/></button>
+                        <button type="button" hidden={activeStep === 0} className={styles.back} aria-label="Previous" onClick={handleBack}><ArrowBackIcon style={{color:'black'}}/></button>
                         <Typography className={styles.title} id="ModalLabel">Demander un devis</Typography>
                         <button type="button" className={styles.close} data-dismiss="modal" aria-label="Close" onClick={handleClose}><span aria-hidden="true">×</span></button>
                     </div>

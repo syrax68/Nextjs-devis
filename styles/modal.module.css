@@ -176,6 +176,15 @@
     width: 100% !important;
     padding: 18.5px 14px 17.5px 52px !important;
 }
+.MuiChecked {
+    color: #19b3a3 !important;
+}
+.colorPrimary {
+    color: #19b3a3 !important;
+}
+.track {
+    background-color: #19b3a3 !important;
+}
 @media (max-width: 450px) {
     .menu {
         font-size: 10px !important;
