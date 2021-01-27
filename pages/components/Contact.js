@@ -30,6 +30,7 @@ export default Contact = (props) => {
         if (typeof window !== "undefined") {
             setContact(JSON.parse(localStorage.getItem('dataContact')))    
         }
+        console.log(contact)
     },[setContact]);
     const handleChangeContact = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
@@ -45,6 +46,8 @@ export default Contact = (props) => {
                     lastnamekljh:contact?contact.lastnamekljh:'',
                     emailkljh:contact?contact.emailkljh:'',
                     phonekljh:contact?contact.phonekljh:phone?phone:'',
+                    viaPhone:contact?contact.viaPhone:state.viaPhone?state.viaPhone:false,
+                    viaEmail:contact?contact.viaEmail:state.viaEmail?state.viaEmail:false,
                     firstname:'',
                     lastname:'',
                     email:'',
@@ -54,7 +57,7 @@ export default Contact = (props) => {
                     firstnamekljh: Yup.string().max(30).required('Merci de renseigner votre nom'),
                     lastnamekljh: Yup.string().max(30).required('Merci de renseigner votre prénom'),
                     emailkljh: Yup.string().email('Merci de corriger votre Email').required('L\'adresse email est requise'),
-                    phonekljh: Yup.string().matches(phoneRegExp, 'Merci de corriger votre numero de téléphone').required('Merci de renseigner votre numero téléphone'),
+                    phonekljh: Yup.string().matches(phoneRegExp, 'Merci de corriger votre numero de téléphone').min(11,'Merci de corriger votre numero de téléphone').required('Merci de renseigner votre numero téléphone'),
                     firstname: Yup.string().max(30),
                     lastname: Yup.string().max(30),
                     email: Yup.string().email('Merci de corriger votre Email'),
@@ -196,7 +199,7 @@ export default Contact = (props) => {
                             <FormControlLabel
                                 control={
                                     <Switch
-                                        checked={state.viaPhone}
+                                        checked={values.viaPhone}
                                         onChange={handleChangeContact}
                                         classes={{
                                             colorPrimary: styles.colorPrimary,
@@ -212,7 +215,7 @@ export default Contact = (props) => {
                             <FormControlLabel
                                 control={
                                     <Switch
-                                        checked={state.viaEmail}
+                                        checked={values.viaEmail}
                                         onChange={handleChangeContact}
                                         classes={{
                                             colorPrimary: styles.colorPrimary,
