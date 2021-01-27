@@ -14,15 +14,20 @@ import {
   Switch
 } from '@material-ui/core';
 import PhoneInput from 'react-phone-input-2';
+import prefixe from '../../helpers/prefixePhone';
 import 'react-phone-input-2/lib/material.css';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/; 
 
 const Contact = (props) => {
     const [spameur, setSpam] = useState(false);
-    const [phone, setPhone] = useState();
+    const [phone, setPhone] = useState({
+        number:"",
+        numberOfNumber:"11",
+        country:"",
+        type:"mobile",
+    });
     const [contact, setContact] = useState();
-    const [numberOfPhone, setNumberOfPhone]= useState();
     const [state, setState] = useState({
         viaPhone: true,
         viaEmail: true,
@@ -37,8 +42,17 @@ const Contact = (props) => {
     };
     const handleChangePhone=(value, data, event, formattedValue) => {
         let phone1 = data.format.split(' ');
-        setNumberOfPhone(phone1.join('').length-1);
-        setPhone(value);
+        setPhone({ ...phone,number:value,numberOfNumber:phone1.join('').length-1,country:data.name,type:"mobile"});
+        let getNumberOfPrefixe=[...(value)];
+        prefixe.map((item)=>{
+            if(item.country === data.name){
+                (item.fixe).map((value)=>{
+                    if(value == Number(getNumberOfPrefixe[2])){
+                        setPhone(prevState => ({ number:prevState.number,numberOfNumber:prevState.numberOfNumber,country:prevState.country, type:"fixe"}));
+                    }
+                })
+            }
+        })
     }
     return (
         <div className={styles.body}>   
@@ -49,7 +63,7 @@ const Contact = (props) => {
                     firstnamekljh:contact?contact.firstnamekljh:'',
                     lastnamekljh:contact?contact.lastnamekljh:'',
                     emailkljh:contact?contact.emailkljh:'',
-                    phonekljh:contact?contact.phonekljh:phone?phone:'',
+                    phonekljh:phone.number?phone.number:contact?contact.phonekljh:'',
                     viaPhone:contact?contact.viaPhone:state.viaPhone?state.viaPhone:false,
                     viaEmail:contact?contact.viaEmail:state.viaEmail?state.viaEmail:false,
                     firstname:'',
@@ -61,7 +75,7 @@ const Contact = (props) => {
                     firstnamekljh: Yup.string().max(30).required('Merci de renseigner votre nom'),
                     lastnamekljh: Yup.string().max(30).required('Merci de renseigner votre prénom'),
                     emailkljh: Yup.string().email('Merci de corriger votre Email').required('L\'adresse email est requise'),
-                    phonekljh: Yup.string().matches(phoneRegExp, 'Merci de corriger votre numero de téléphone').min(numberOfPhone,'Merci de corriger votre numero de téléphone').max(30).required('Merci de renseigner votre numero téléphone'),
+                    phonekljh: Yup.string().matches(phoneRegExp, 'Merci de corriger votre numero de téléphone').min(Number(phone.numberOfNumber),'Merci de corriger votre numero de téléphone').max(30).required('Merci de renseigner votre numero téléphone'),
                     firstname: Yup.string().max(30),
                     lastname: Yup.string().max(30),
                     email: Yup.string().email('Merci de corriger votre Email'),
@@ -76,17 +90,17 @@ const Contact = (props) => {
                     try {
                     // NOTE: Make API request
                         await wait(200);
-                        console.log(values.emailkljh)
-                        fetch('http://apilayer.net/api/check?access_key=2169bfdcde44c79d26efaf608c547ab6&email='+values.emailkljh+'&smtp=1&format=1')
-                        .then((response) => response.json())
-                        .then(data => {
-                            console.log(data);
-                        });
+                        // fetch('http://apilayer.net/api/check?access_key=2169bfdcde44c79d26efaf608c547ab6&email='+values.emailkljh+'&smtp=1&format=1')
+                        // .then((response) => response.json())
+                        // .then(data => {
+                        //     console.log(data);
+                        // });
                         
                         if(values.firstname || values.lastname){
                             setSpam(true);
                         }else{
                             if (typeof window !== "undefined") {
+                                values={...values, typePhone:phone.type}
                                 localStorage.setItem('dataContact',JSON.stringify(values))    
                             }
                             props.setActiveStep(1);
@@ -94,7 +108,6 @@ const Contact = (props) => {
                             setStatus({ success: true });
                             setSubmitting(false);
                         }
-                        
                     } catch (err) {
                         console.log(err);
                         setStatus({ success: false });

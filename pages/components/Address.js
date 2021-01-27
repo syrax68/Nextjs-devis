@@ -116,7 +116,6 @@ const Address = (props) => {
                 }) => {
                     try {
                         // NOTE: Make API request
-                        console.log(address);
                         await wait(200);
                         resetForm();
                         setStatus({ success: true });

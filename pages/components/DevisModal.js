@@ -238,7 +238,6 @@ export default function Devis() {
                                   variant="body1"
                                   className={styles.center}
                                 >
-                                  {console.log(localStorage.getItem('dataFacture'))}
                                   Préparez votre Formation !
                                 </Typography>
                                 <Typography 
