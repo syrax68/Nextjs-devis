@@ -205,9 +205,8 @@
         padding: 5px;
         font-family: open sans, sans-serif;
     }
-    .content div {
-        width: 100%;
-        margin: 0px;
+    .container {
+        padding: 10px;
     }
     .tabpanelBox {
         padding: 0px !important;
