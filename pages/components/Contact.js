@@ -18,20 +18,14 @@ import 'react-phone-input-2/lib/material.css';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/; 
 
-export default function Contact(props) {
+export default Contact = (props) => {
     const [spameur, setSpam] = useState(false);
     const [phone, setPhone] = useState();
     const [contact, setContact] = useState();
     const [state, setState] = useState({
         viaPhone: true,
         viaEmail: true,
-      });
-    const honeypot_validade = (req) => {          
-        if(req.firstname || req.lastname || req.email){
-            return true; 
-        }
-        return false;
-    }
+    });
     useEffect(() => {
         if (typeof window !== "undefined") {
             setContact(JSON.parse(localStorage.getItem('dataContact')))    
@@ -40,7 +34,7 @@ export default function Contact(props) {
     const handleChangeContact = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
-    console.log(state)
+
     return (
         <div className={styles.body}>   
             <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
