@@ -18,10 +18,11 @@ import 'react-phone-input-2/lib/material.css';
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/; 
 
-export default Contact = (props) => {
+const Contact = (props) => {
     const [spameur, setSpam] = useState(false);
     const [phone, setPhone] = useState();
     const [contact, setContact] = useState();
+    const [numberOfPhone, setNumberOfPhone]= useState();
     const [state, setState] = useState({
         viaPhone: true,
         viaEmail: true,
@@ -30,12 +31,15 @@ export default Contact = (props) => {
         if (typeof window !== "undefined") {
             setContact(JSON.parse(localStorage.getItem('dataContact')))    
         }
-        console.log(contact)
     },[setContact]);
     const handleChangeContact = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
-
+    const handleChangePhone=(value, data, event, formattedValue) => {
+        let phone1 = data.format.split(' ');
+        setNumberOfPhone(phone1.join('').length-1);
+        setPhone(value);
+    }
     return (
         <div className={styles.body}>   
             <Typography className={styles.textmenu}>Qui demande cette formation?</Typography>
@@ -57,7 +61,7 @@ export default Contact = (props) => {
                     firstnamekljh: Yup.string().max(30).required('Merci de renseigner votre nom'),
                     lastnamekljh: Yup.string().max(30).required('Merci de renseigner votre prénom'),
                     emailkljh: Yup.string().email('Merci de corriger votre Email').required('L\'adresse email est requise'),
-                    phonekljh: Yup.string().matches(phoneRegExp, 'Merci de corriger votre numero de téléphone').min(11,'Merci de corriger votre numero de téléphone').required('Merci de renseigner votre numero téléphone'),
+                    phonekljh: Yup.string().matches(phoneRegExp, 'Merci de corriger votre numero de téléphone').min(numberOfPhone,'Merci de corriger votre numero de téléphone').max(30).required('Merci de renseigner votre numero téléphone'),
                     firstname: Yup.string().max(30),
                     lastname: Yup.string().max(30),
                     email: Yup.string().email('Merci de corriger votre Email'),
@@ -178,7 +182,7 @@ export default Contact = (props) => {
                             >
                                 <PhoneInput
                                     inputClass={styles.phoneInput}
-                                    onChange={setPhone}
+                                    onChange={handleChangePhone}
                                     onBlur={handleBlur}
                                     value={values.phonekljh}
                                     specialLabel="Téléphone (mobile de préférence)"
@@ -339,3 +343,5 @@ export default Contact = (props) => {
         </div>               
   )
 }
+
+export default Contact;
