@@ -22,7 +22,7 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 const Contact = (props) => {
     const [spameur, setSpam] = useState(false);
     const [phone, setPhone] = useState({
-        number:"",
+        number:"+33 6 12 34 56 78",
         numberOfNumber:"11",
         country:"",
         type:"mobile",
@@ -34,13 +34,19 @@ const Contact = (props) => {
     });
     useEffect(() => {
         if (typeof window !== "undefined") {
-            setContact(JSON.parse(localStorage.getItem('dataContact')))    
+            setContact(JSON.parse(localStorage.getItem('dataContact')))   
         }
     },[setContact]);
     const handleChangeContact = (event) => {
+        if(contact){
+            setContact({ ...contact, viaEmail:'', viaPhone:''} )
+        }
         setState({ ...state, [event.target.name]: event.target.checked });
     };
     const handleChangePhone=(value, data, event, formattedValue) => {
+        if(contact){
+            setContact({ ...contact, phonekljh:''} )
+        }
         let phone1 = data.format.split(' ');
         setPhone({ ...phone,number:value,numberOfNumber:phone1.join('').length-1,country:data.name,type:"mobile"});
         let getNumberOfPrefixe=[...(value)];
@@ -63,9 +69,9 @@ const Contact = (props) => {
                     firstnamekljh:contact?contact.firstnamekljh:'',
                     lastnamekljh:contact?contact.lastnamekljh:'',
                     emailkljh:contact?contact.emailkljh:'',
-                    phonekljh:phone.number?phone.number:contact?contact.phonekljh:'',
-                    viaPhone:contact?contact.viaPhone:state.viaPhone?state.viaPhone:false,
-                    viaEmail:contact?contact.viaEmail:state.viaEmail?state.viaEmail:false,
+                    phonekljh:contact?(contact.phonekljh !=="")?contact.phonekljh:phone.number?phone.number:'':phone.number,
+                    viaPhone:contact?(contact.viaPhone !== "")?contact.viaPhone:state.viaPhone?state.viaPhone:false:state.viaPhone,
+                    viaEmail:contact?(contact.viaEmail !== "")?contact.viaEmail:state.viaEmail?state.viaEmail:false:state.viaEmail,
                     firstname:'',
                     lastname:'',
                     email:'',
@@ -207,7 +213,6 @@ const Contact = (props) => {
                                 />
                                <p style={{color:'red',margin:'5px',fontSize:'12px'}}>{errors.phonekljh}</p>
                             </Grid>
-                            <Typography className={styles.textmenu}>Prise de contact</Typography>
                             <Grid
                                 item
                                 md={12}
@@ -227,7 +232,7 @@ const Contact = (props) => {
                                         name="viaPhone" 
                                     />
                                 }
-                                label="Par téléphone"
+                                label="Etre recontacté par téléphone"
                             />
                             <FormControlLabel
                                 control={
@@ -243,7 +248,7 @@ const Contact = (props) => {
                                         name="viaEmail"
                                     />
                                 }
-                                label="Par Email"
+                                label="Etre recontacté par email"
                             />
                             </Grid>  
                             <Grid
